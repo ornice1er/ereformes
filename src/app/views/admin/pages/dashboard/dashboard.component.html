@@ -1,0 +1,117 @@
+<div class="container p-5">
+<div class="d-flex justify-content-between align-items-center flex-wrap mb-4 gap-3">
+    <div class="d-flex flex-column">
+        <h3>Tableau de bord</h3>
+    </div>
+   
+</div>
+    <section class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-6 col-lg-3 col-md-6" *ngIf="role=='saisie' || role=='saisie central'">
+                    <div class="card card-block card-stretch card-height">
+                        <div class="card-body">
+                            <div class="mb-2 d-flex justify-content-between align-items-center">
+                                <span class="text-dark ">Réformes en attente de transmission</span>
+                                
+                            </div>
+                            <h2 class="counter" style="visibility: visible;">{{data?.total_pending}}</h2>
+                        </div>
+                    </div>
+                   
+                </div>
+
+
+                <div class="col-6 col-lg-3 col-md-6" *ngIf="role=='validation'">
+                    <div class="card card-block card-stretch card-height">
+                        <div class="card-body">
+                            <div class="mb-2 d-flex justify-content-between align-items-center">
+                                <span class="text-dark ">Réformes en attente de validation</span>
+                                
+                            </div>
+                            <h2 class="counter" style="visibility: visible;">{{data?.total_pending}}</h2>
+                        </div>
+                    </div>
+                   
+                </div>
+
+                <div class="col-6 col-lg-3 col-md-6" *ngIf="role=='publication'">
+                    <div class="card card-block card-stretch card-height">
+                        <div class="card-body">
+                            <div class="mb-2 d-flex justify-content-between align-items-center">
+                                <span class="text-dark ">Réformes en attente de publication</span>
+                                
+                            </div>
+                            <h2 class="counter" style="visibility: visible;">{{data?.total_pending}}</h2>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="col-6 col-lg-3 col-md-6" *ngIf="role=='admin'">
+                    <div class="card card-block card-stretch card-height bg-primary " >
+                        <div class="card-body">
+                            <div class="mb-2 d-flex justify-content-between align-items-center">
+                                <span class="text-white ">Compte Utilisateurs</span>
+                                
+                            </div>
+                            <h2 class="counter text-white" style="visibility: visible;">{{data?.users}}</h2>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="col-6 col-lg-3 col-md-6" *ngIf="role=='admin'">
+                    <div class="card card-block card-stretch card-height bg-warning ">
+                        <div class="card-body">
+                            <div class="mb-2 d-flex justify-content-between align-items-center">
+                                <span class="text-white ">Structures</span>
+                                
+                            </div>
+                            <h2 class="counter text-white" style="visibility: visible;">{{data?.total_structures}}</h2>
+                        </div>
+                    </div>
+                
+                </div>
+                <div class="col-6 col-lg-3 col-md-6">
+                    <div class="card card-block card-stretch card-height bg-danger">
+                        <div class="card-body">
+                            <div class="mb-2 d-flex justify-content-between align-items-center">
+                                <span class="text-white ">Réformes</span>
+                                
+                            </div>
+                            <h2 class="counter text-white" style="visibility: visible;">{{data?.total_reforme}}</h2>
+                        </div>
+                    </div>
+                  
+                </div>
+                <div class="col-6 col-lg-3 col-md-6">
+                    <div class="card card-block card-stretch card-height bg-success">
+                        <div class="card-body">
+                            <div class="mb-2 d-flex justify-content-between align-items-center">
+                                <span class="text-white ">Réformes administratives</span>
+                                
+                            </div>
+                            <h2 class="counter text-white" style="visibility: visible;">{{data?.total_reforme_admin}}</h2>
+                        </div>
+                    </div>
+                
+                </div>
+                <div class="col-6 col-lg-3 col-md-6">
+                    <div class="card card-block card-stretch card-height bg-dark">
+                        <div class="card-body">
+                            <div class="mb-2 d-flex justify-content-between align-items-center">
+                                <span class="text-white ">Réformes institutionnelles</span>
+                                
+                            </div>
+                            <h2 class="counter text-white" style="visibility: visible;">{{data?.total_reforme_ins}}</h2>
+                        </div>
+                    </div>
+                    
+                </div>
+            
+            </div>
+           
+        </div>
+       
+    </section>
+
+</div>

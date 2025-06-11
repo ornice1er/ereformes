@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-lg-12">
+       <div class="card">
+           <div class="card-header">
+               <div class="form-group">
+                   <label for="">Choisir une réforme</label>
+                   <!-- <select  name="reforme_id" class="form-control" (change)="loadResult($event)"  id="">
+                        <option disabled selected>Choisir une réforme</option>
+                        <option *ngFor="let o of reformes" [value]="o.id">{{o.libref}}</option>
+                </select> -->
+                <ng-select  
+                *ngIf="isShown"
+                (valueChanged)="loadResult($event)"
+                class="form-control"
+                    >	
+                    <ng-option *ngFor="let r of reformes2" [value]="r.id">{{r.name}}</ng-option>	
+                </ng-select>
+               </div>
+            <div class="d-flex mb-5 " *ngIf="buttonsPermission">
+              
+            </div>
+           </div>
+           <p class="text-center h3" *ngIf="result?.objectifs.length ==0">Aucune donnée de suivi</p>
+           <div class="card-body mb-3" *ngFor="let o of result?.objectifs">
+            <div class="table-responsive" >
+                <h3> <strong>Objectif:</strong> {{o.libobjectif}}
+                    <small class="float-right">{{getPourcent(o)}}</small>
+                </h3>
+                <div  *ngFor="let d of o.results ">
+                    <h3> <strong>Résultat</strong></h3>
+                    <p class="mb-5">
+                        <strong>Libellé : </strong> {{d?.libresult}}<br>
+                        <strong>Indicateur : </strong>{{d?.indicateur}}<br>
+                        <strong>Valeur Cible : </strong> {{d?.valeur_cible}}<br>
+                        <strong>Valeur Ref : </strong> {{d?.valeurref}}<br>
+                            <strong>Statut : </strong>
+                            <span *ngIf="d.status ==1"  class="bg-success p-1 text-white rounded">
+                                Validé
+                            </span>
+                            <button class="btn btn-sm btn-outline-primary" *ngIf="d.status ==0" (click)="changeStatus(d.id)">Valider</button>
+                    </p>
+                    <table class="table table-sm align-middle   table-nowrap mb-0 table-bordered" >
+                        <thead class="table-secondary">
+                            <tr>
+                                <th style="width: 10px;">#</th>
+                                <th>Taux de réalisation</th>
+                                <th>Valeur réalisée</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let sr of d.suivi_results; let ind=index ">
+                                <td>
+                                   {{ind+1}}
+                                </td>
+                                <td>{{sr?.taux_realisat}}</td>
+                                <td>{{sr?.valeur_realise}}</td>
+                                <td>{{sr?.date | date:"longDate"}}</td>
+                         
+                            </tr>
+                        
+                        </tbody>
+                    </table>
+                </div>
+               
+             
+                </div>
+           </div>
+       </div>
+    </div>
+    <!-- end col -->
+</div>

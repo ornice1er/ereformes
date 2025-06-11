@@ -1,0 +1,7 @@
+<ng-container *ngIf="isReady; else loading">
+  <router-outlet></router-outlet>
+</ng-container>
+
+<ng-template #loading>
+  <div class="spinner">Chargement...</div>
+</ng-template>

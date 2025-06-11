@@ -1,0 +1,301 @@
+
+
+<div class="row">
+   
+    <div class="col-lg-12">
+       <div class="card">
+          
+        <div class="row p-3 mb-3">
+            <h6>Rechercher</h6>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="">Structure</label>
+                    <select name="" id="" class="form-control" (change)="filterByStructure($event)">
+                        <option *ngFor="let s of structures" value="{{s.id}}">{{s.designation}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="">Nature</label>
+                    <select name="" id="" class="form-control" (change)="filterByNature($event)">
+                        <option *ngFor="let s of natures" value="{{s.id}}">{{s.libnature}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="">Couverture</label>
+                    <select name="" id="" class="form-control" (change)="filterByCover($event)">
+                        <option *ngFor="let s of covers" value="{{s.id}}">{{s.lib_couvert}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="">Type de réforme</label>
+                    <select name="typeref" class="form-control" id="" ngModel (change)="filterByTypeR($event)">
+                        <option value="SECTORIELLE">SECTORIELLE</option>
+                        <option value="TRANSVERSALE">TRANSVERSALE</option>
+                    </select>
+                </div>
+            </div>
+            </div>
+           <div class="card-header">
+            <div class="d-flex mb-5 " *ngIf="buttonsPermission">
+                <button *ngIf="buttonsPermission.add" class="btn btn-info btn-sm btn-label waves-effect waves-light float-right me-3" (click)="add(addContent)">Ajouter</button>
+                <button *ngIf="buttonsPermission.show"  (click)="show(showContent)" type="button" class="btn btn-outline-primary btn-sm btn-label waves-effect waves-light me-3">
+                     <span>Consulter</span></button>
+                     <button *ngIf="buttonsPermission.publish && !selected_data?.isPublished" class="btn btn-sm btn-outline-success mx-1" nbTooltip="Arrêter de publier la réforme" nbTooltipPlacement="top" (click)="publish()">
+                        Publier
+                      </button>
+
+                   
+                    <button  *ngIf="buttonsPermission.unpublish && selected_data?.isPublished" class="btn btn-sm btn-outline-danger mx-1" nbTooltip="Arrêter de publier la réforme" nbTooltipPlacement="top" (click)="unpublish()">
+                      Arrêter de publier
+                    </button>
+                    <button *ngIf="buttonsPermission.result" (click)="edit(addResult)"  class="btn btn-sm btn-outline-primary mx-1" nbTooltip=" Définir le périmètre d'action" nbTooltipPlacement="top">
+                        Définir le périmètre d'action
+                      </button>
+                      
+
+            </div>
+           </div>
+           <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-sm dataTable" >
+                    <thead class="table-secondary">
+                        <tr>
+                            <th style="width: 10px;">#</th>
+                            <th style="width: 10px;">Libellé</th>
+                            <th>Type</th>
+                            <th>Periode</th>
+                            <th>Date début</th>
+                            <th>Date fin</th>
+                            <th>Etat</th>
+                            <th>Publiée?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let d of data2 ">
+                            <td>
+                                <div class="form-check mb-2">
+                                    <input (click)="checked(d)" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                
+                                </div>
+                            </td>
+                            <td style="width: 10px;"><p>{{d.libref}}</p></td>
+                            <td>{{d.typeref}}</td>
+                            <td>{{d.periodexe}}</td>
+                            <td>{{d.date_debut | date:"longDate"}}</td>
+                            <td>{{d.date_fin | date:"longDate"}}</td>
+                            <td>{{d.etat_mor}}</td>
+                            <!--td>{{d.perspective}}</td-->
+                            <td>
+                                <div class="p-1 bg-success rounded text-white text-center" *ngIf="d.isPublished">Oui</div>
+                                <div class="p-1 bg-danger rounded text-white text-center" *ngIf="!d.isPublished" >Non</div>
+                            </td>
+                        </tr>
+                    
+                    </tbody>
+                </table>
+                </div>
+           </div>
+       </div>
+    </div>
+    <!-- end col -->
+</div>
+
+<ng-template #addContent let-c="close" let-d="dismiss">
+    <form #addForm="ngForm" (ngSubmit)="store(addForm.value)">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Enregistrer un secteur</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body" >
+        <div class="row mb-3" >
+            <div class="form-goup col-12">
+                <label for="">Libellé</label>
+                <input type="text" name="name" class="form-control" ngModel>
+            </div>
+           
+        </div>
+       
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark" >Soumettre</button>
+    </div>
+</form>
+  </ng-template>
+  <ng-template #addResult let-c="close" let-d="dismiss">
+    <form #rForm="ngForm" (ngSubmit)="storeR(rForm.value)">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Enregistrer un résultat attendu</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body" >
+        <div class="row mb-3" >
+            <div class="form-goup col-12">
+                <label for="">Libellé résultat</label>
+                <input type="text" name="libresult" class="form-control" ngModel>
+            </div>
+            <div class="form-goup col-12">
+                <label for="">Indicateur</label>
+                <input type="text" name="indicateur" class="form-control" ngModel>
+            </div>
+            <div class="form-goup col-12">
+                <label for="">Valeur cible</label>
+                <input type="text" name="valeur_cible" class="form-control" ngModel>
+            </div>
+            <div class="form-goup col-12">
+                <label for="">Valeur référence</label>
+                <input type="text" name="valeurref" class="form-control" ngModel>
+            </div>
+            <div class="form-goup col-12 mb-3">
+                <label for="">Libellé de l'objectif</label>
+                <select  name="objectif_id" class="form-control" ngModel id="">
+                    <option *ngFor="let o of objectifs" [value]="o.id">{{o.libobjectif}}</option>
+                </select>
+            </div>
+        </div>
+       
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark" >Soumettre</button>
+    </div>
+</form>
+  </ng-template>
+
+
+  <ng-template #editContent let-c="close" let-d="dismiss">
+    <form #editForm="ngForm" (ngSubmit)="update(editForm.value)">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Modifier</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body" >
+        <div class="row mb-3">
+            <div class="form-goup col-12">
+                <label for="">Libellé</label>
+                <input type="text" name="name" class="form-control" [(ngModel)]="selected_data.name">
+            </div>
+        </div>
+       
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark" >Sauvegarder</button>
+    </div>
+</form>
+  </ng-template>
+
+  <ng-template #showContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Détails des informations</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="table-responsive table-card">
+            <h4>Réformes</h4>
+            <table class="table table-borderless align-middle mb-0">
+                <tbody>
+                    <tr >
+                        <td class="fw-medium">Libellé</td>
+                        <td >{{selected_data.libref}} </td>
+                    </tr>
+               
+                    <tr >
+                        <td class="fw-medium">Type</td>
+                        <td >{{selected_data.typeref}} </td>
+                    </tr>
+               
+                    <tr >
+                        <td class="fw-medium">Objectif</td>
+                        <td >{{selected_data.objectif_glob}} </td>
+                    </tr>
+               
+                    <tr >
+                        <td class="fw-medium">Population cible</td>
+                        <td >{{selected_data.popul_cible}} </td>
+                    </tr>
+               
+                    <tr >
+                        <td class="fw-medium">Structure impliquées</td>
+                        <td >{{selected_data.struct_impl}} </td>
+                    </tr>
+               
+                    <tr >
+                        <td class="fw-medium">Période</td>
+                        <td >{{selected_data.periodexe}} </td>
+                    </tr>
+               
+                    <tr >
+                        <td class="fw-medium">Date début</td>
+                        <td >{{selected_data.date_debut}} </td>
+                    </tr>
+               
+                    <tr >
+                        <td class="fw-medium">Date fin</td>
+                        <td >{{selected_data.date_fin}} </td>
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Date enregistrement</td>
+                        <td >{{selected_data.date_enreg}} </td>
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Cadre institutionnel de mise en oeuvre</td>
+                        <td >{{selected_data.cadreinst_mor}} </td>
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Eate de mise en oeuvre fin</td>
+                        <td >{{selected_data.etat_mor}} </td>
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Montant réalisé</td>
+                        <td >{{selected_data.montant_prevu}} </td>
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Montant prévu</td>
+                        <td >{{selected_data.montant_trealise}} </td>
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Difficulité</td>
+                        <td >{{selected_data.difficult}} </td>
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Solution</td>
+                        <td >{{selected_data.solution}} </td>
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Perspective</td>
+                        <td >{{selected_data.perspective}} </td>
+                    </tr>
+               
+                </tbody>
+            </table>
+
+            <h4>Objectifs</h4>
+                <fieldset *ngFor="let o of selected_data.objectifs">
+                    <legend>{{o.libobjectif}}</legend>
+                    <table class="table table-sm">
+                       <thead>
+                        <tr>
+                            <th >Libellé</th>
+                            <th>Indicateur</th>
+                            <th>Valuer cible</th>
+                            <th>Valuer référence</th>
+                        </tr>
+                       </thead>
+                       <tbody>
+                           <tr *ngFor="let r of o.results">
+                                <td>{{r.libresult}}</td>
+                                <td>{{r.indicateur}}</td>
+                                <td>{{r.valeur_cible}}</td>
+                                <td>{{r.valeurref}}</td>
+                           </tr>
+                       </tbody>
+                    </table>
+                </fieldset>
+        </div>
+      </div>
+</ng-template>

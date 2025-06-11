@@ -1,0 +1,178 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 col-12">
+
+                <div class="">
+                    <div class="form-group" >
+                        <label for="">Réformes</label>
+                        <select class="form-control" name="" id="" (change)="getObjectfs($event)">
+                            <option disabled selected></option>
+                           <option *ngFor="let r of reformes" [value]="r.id">{{r.libref}}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Objectifs</label>
+                        <select class="form-control" name="" id="" (change)="getResults($event)">
+                            <option disabled selected></option>
+                           <option *ngFor="let o of objectifs" [value]="o.id">{{o.libobjectif}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Résultat attendu</label>
+                        <select class="form-control" name="" id="" (change)="getSuiviResults($event)">
+                            <option disabled selected></option>
+                           <option *ngFor="let ra of results" [value]="ra.id">{{ra.libresult}}</option>
+                        </select>
+                    </div>
+                </div>
+                    </div>
+                    <div class="col-md-9 col-12">
+                        <div class="d-flex mb-5 " *ngIf="buttonsPermission">
+                            <button class="btn btn-info btn-sm btn-label waves-effect waves-light float-right me-3" (click)="add(addContent)">Ajouter</button>
+                            <!--button *ngIf="buttonsPermission.show"  (click)="show(showContent)" type="button" class="btn btn-outline-primary btn-sm btn-label waves-effect waves-light me-3">
+                                 <span>Consulter</span></!--button>
+                            < <button *ngIf="buttonsPermission.edit" (click)="edit(editContent)" type="button"  class="btn btn-outline-warning btn-sm btn-label waves-effect waves-light me-3">
+                               Editer</button> >
+                            <button-- *ngIf="buttonsPermission.delete" (click)="delete()" type="button" class="btn btn-outline-danger btn-sm btn-label waves-effect waves-light me-3">
+                                 Supprimer</button-->
+        
+          
+                             </div>
+        
+        
+                                <p>{{data.length}} élément(s)</p>
+                                <div class="table-responsive">
+                                <table class="table table-sm align-middle   table-nowrap mb-0 table-bordered" >
+                                    <thead class="table-secondary">
+                                        <tr>
+                                            <th style="width: 10px;">#</th>
+                                            <th>Taux de réalisation</th>
+                                            <th>Valeur réalisée</th>
+                                            <th>Date</th>
+                                            <th *ngIf="user.roles[0].name == 'validation'">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let d of suivi_results; let ind=index ">
+                                            <td>
+                                                <div class="form-check mb-2">
+                                                    <input (click)="checked(d)" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                                
+                                                </div>
+                                            </td>
+                                            <td>{{d?.taux_realisat}}</td>
+                                            <td>{{d?.valeur_realise}}</td>
+                                            <td>{{d?.date}}</td>
+                                            <td *ngIf="user.roles[0].name == 'validation'">
+                                                <p class="text-danger" (click)="deleteSuiviResult(d.id,ind)" style="cursor: pointer;"><u>Retirer</u></p>
+
+                                            </td>
+                                        </tr>
+                                    
+                                    </tbody>
+                                </table>
+                                </div>
+        
+                    </div>
+                </div>
+              
+            </div><!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end col -->
+</div>
+
+<ng-template #addContent let-c="close" let-d="dismiss">
+    <form #addForm="ngForm" (ngSubmit)="store(addForm.value)">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Enregistrer un résultat</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body" >
+        <div class="row " >
+            <div class="form-goup col-12 mb-3">
+                <label for="">Taux de réalisation</label>
+                <input type="number" min="0" name="taux_realisat" class="form-control" ngModel>
+            </div>
+            <div class="form-goup col-12 mb-3">
+                <label for="">Valeur realisée</label>
+                <input type="number" min="0" name="valeur_realise" class="form-control" ngModel>
+            </div>
+            <div class="form-goup col-12 mb-3">
+                <label for="">Date</label>
+                <input type="date" name="date" class="form-control" ngModel>
+            </div>
+           
+        </div>
+       
+    </div>
+    <div class="modal-footer">
+      <button type="submit" [disabled]="addForm.invalid || loading" class="btn btn-outline-dark" >Enregistrer</button>
+    </div>
+</form>
+  </ng-template>
+
+  <ng-template #editContent let-c="close" let-d="dismiss">
+    <form #editForm="ngForm" (ngSubmit)="update(editForm.value)">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title"></h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body" >
+        <div class="row mb-3">
+            <div class="form-goup col-12 mb-3">
+                <label for="">Taux de réalisation</label>
+                <input type="number" min="0" name="taux_realisat" class="form-control" [(ngModel)]="selected_data.taux_realisat">
+            </div>
+            
+            <div class="form-goup col-12 mb-3">
+                <label for="">Valeur realisée</label>
+                <input type="number" min="0" name="valeur_realise" class="form-control" [(ngModel)]="selected_data.valeur_realise">
+            </div>
+            
+            <div class="form-goup col-12 mb-3">
+                <label for="">Date</label>
+                <input type="date" name="date" class="form-control" [(ngModel)]="selected_data.date">
+            </div>
+            
+        </div>
+       
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark" >Sauvegarder</button>
+    </div>
+</form>
+  </ng-template>
+
+  <ng-template #showContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Détails des informations</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="table-responsive table-card">
+            <table class="table table-borderless align-middle mb-0">
+                <tbody>
+                    <tr >
+                        <td class="fw-medium">Libellé</td>
+                        <td >{{selected_data.libobjectif}} </td>
+                      
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Réforme</td>
+                        <td >{{selected_data?.reforme?.libref}} </td>
+                      
+                    </tr>
+               
+                </tbody>
+            </table>
+        </div>
+      </div>
+</ng-template>

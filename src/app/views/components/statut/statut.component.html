@@ -1,0 +1,16 @@
+<span [ngSwitch]="status">
+<p *ngSwitchCase="'en_attente'">
+    <span class="p-1 bg-warning rounded text-white">En attente</span>
+</p>
+<p *ngSwitchCase="'valide'">
+    <span class="p-1 bg-success rounded text-white">Validé</span>
+
+</p>
+<p *ngSwitchCase="'rejete'">
+    <span class="p-1 bg-danger rounded text-white">Rejeté</span>
+
+</p>
+<p *ngSwitchDefault>
+    {{status}}
+</p>
+</span>

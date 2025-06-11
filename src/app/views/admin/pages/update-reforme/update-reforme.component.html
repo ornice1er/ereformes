@@ -1,0 +1,270 @@
+
+        <form #addForm="ngForm" (ngSubmit)="store(addForm.value)" class="mb-5">
+
+            <div class="card ">
+                <div class="card-body">
+                    <fieldset class="border mb-3 p-3">
+                        <legend>Informations Générales</legend>
+                        <div class="row">
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="">Libellé <span class="text-danger ml-2">(*)</span></label>
+                                    <input type="text" class="form-control" name="libref" #libref="ngModel" [(ngModel)]="data.libref"required>
+                                    <span *ngIf="libref.invalid && (libref.dirty || libref.touched)"
+                                    class="text-danger">
+                                        <span *ngIf="libref.errors?.['required']"> Le Libellé de la réforme est requis</span>
+                                </span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="">Portée de la réforme <span class="text-danger ml-2">(*)</span></label>
+                                    <select name="typeref" class="form-control" id="" #typeref="ngModel" [(ngModel)]="data.typeref"required>
+                                        <option value="SECTORIELLE">SECTORIELLE</option>
+                                        <option value="TRANSVERSALE">TRANSVERSALE</option>
+                                    </select>
+                                    <span *ngIf="typeref.invalid && (typeref.dirty || typeref.touched)"
+                                    class="text-danger">
+                                        <span *ngIf="typeref.errors?.['required']"> La portée de la réforme est requise</span>
+                                </span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="">Nature de réforme <span class="text-danger ml-2">(*)</span></label>
+                                    <select name="nature_id" class="form-control" id="" #nature_id="ngModel" [(ngModel)]="data.nature_id"required>
+                                        <option *ngFor="let d of natures" [value]="d.id">{{d.libnature}}</option>
+                                    </select>
+                                    <span *ngIf="nature_id.invalid && (nature_id.dirty || nature_id.touched)"
+                                    class="text-danger">
+                                        <span *ngIf="nature_id.errors?.['required']"> La nature est requise</span>
+                                </span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="">Objectif global de la réforme <span class="text-danger ml-2">(*)</span></label>
+                                    <input type="text" class="form-control" name="objectif_glob" #objectif_glob="ngModel" [(ngModel)]="data.objectif_glob"required>
+                                    <span *ngIf="objectif_glob.invalid && (objectif_glob.dirty || objectif_glob.touched)"
+                                    class="text-danger">
+                                        <span *ngIf="objectif_glob.errors?.['required']"> L'objectif est requis</span>
+                                </span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="">Population cible <span class="text-danger ml-2">(*)</span></label>
+                                    <input type="text" class="form-control" name="popul_cible" #popul_cible="ngModel" [(ngModel)]="data.popul_cible"required>
+                                    <span *ngIf="popul_cible.invalid && (popul_cible.dirty || popul_cible.touched)"
+                                    class="text-danger">
+                                        <span *ngIf="popul_cible.errors?.['required']"> La population est requise</span>
+                                </span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="">La couverture de la réforme <span class="text-danger ml-2">(*)</span></label>
+                                    <select name="couverture_id" class="form-control" id="" #couverture_id="ngModel" [(ngModel)]="data.couverture_id"required>
+                                        <option *ngFor="let d of covers" [value]="d.id">{{d.lib_couvert}}</option>
+                                    </select>
+                                    <span *ngIf="couverture_id.invalid && (couverture_id.dirty || couverture_id.touched)"
+                                    class="text-danger">
+                                        <span *ngIf="couverture_id.errors?.['required']"> La couverture est requise</span>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+    
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <fieldset class="border mb-3 p-3">
+                                <legend>Structure et période</legend>
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Structures impliquées <span class="text-danger ml-2">(*)</span></label>
+                                            <input type="text" class="form-control" name="struct_impl" #struct_impl="ngModel" [(ngModel)]="data.struct_impl"required>
+                                            <span *ngIf="struct_impl.invalid && (struct_impl.dirty || struct_impl.touched)"
+                                            class="text-danger">
+                                                <span *ngIf="struct_impl.errors?.['required']"> Les structures impliquées sont requises</span>
+                                        </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Période d'execution de la réforme <span class="text-danger ml-2">(*)</span></label>
+                                            <input type="text" class="form-control" name="periodexe" #periodexe="ngModel" [(ngModel)]="data.periodexe"required>
+                                            <span *ngIf="periodexe.invalid && (periodexe.dirty || periodexe.touched)"
+                                            class="text-danger">
+                                                <span *ngIf="periodexe.errors?.['required']"> La période d'execution est requise</span>
+                                        </span>
+                                        </div>
+                                    </div>
+                                  
+                                 
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Date début <span class="text-danger ml-2">(*)</span></label>
+                                            <input (change)="showDate1($event)" type="date" class="form-control" name="date_debut" #date_debut="ngModel" [(ngModel)]="data.date_debut"required>
+                                            <span *ngIf="date_debut.invalid && (date_debut.dirty || date_debut.touched)"
+                                            class="text-danger">
+                                                <span *ngIf="date_debut.errors?.['required']"> La date de début est requise</span>
+                                        </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Date fin <span class="text-danger ml-2">(*)</span></label>
+                                            <input (change)="showDate2($event)" type="date" class="form-control" name="date_fin" #date_fin="ngModel" [(ngModel)]="data.date_fin"required>
+                                            <span *ngIf="date_fin.invalid && (date_fin.dirty || date_fin.touched)"
+                                            class="text-danger">
+                                                <span *ngIf="date_fin.errors?.['required']"> La date de fin est requise</span>
+                                        </span>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </fieldset>
+                        </div>
+                        <!-- <div class="col-12 col-md-6">
+                            <fieldset class="border mb-3 p-3">
+                                <legend>Mise en oeuvre</legend>
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Cadre institutionnel</label>
+                                            <input type="text" class="form-control" name="cadreinst_mor" ngModel>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Etat de mise en oeuvre </label>
+                                            <input type="text" class="form-control" name="etat_mor" ngModel>
+                                        </div>
+                                    </div>
+                                  
+                                 
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Difficultés</label>
+                                            <textarea class="form-control" name="difficult" ngModel></textarea>
+    
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Solutions</label>
+                                            <textarea class="form-control" name="solution" ngModel></textarea>
+    
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </fieldset>
+                        </div> -->
+                  
+                 
+                      <!-- <div class="col-12 col-md-6">
+                        <fieldset class="border mb-3 p-3">
+                            <legend>Coût et perspective</legend>
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Montat total prévu</label>
+                                        <input type="number" class="form-control" name="montant_prevu" ngModel>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Montat total réalisé</label>
+                                        <input type="number" class="form-control" name="montant_trealise" ngModel>
+                                    </div>
+                                </div>
+                              
+                             
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Perspectives</label>
+                                        <textarea class="form-control" name="perspective" ngModel></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                      </div> -->
+                      <div class="col-12 col-md-6" *ngIf="role=='saisie central'">
+                        <fieldset class="border mb-3 p-3">
+                            <legend>Struture en charge</legend>
+                            <div class="form-group">
+                                <label for="">Choisir la structure</label>
+                                <select name="structure_id" class="form-control" id="" #structure_id="ngModel" required [(ngModel)]="data.structure_id">
+                                    <option *ngFor="let d of structures" [value]="d.id">{{d.designation}}</option>
+                                </select>
+                                <span *ngIf="structure_id.invalid && (structure_id.dirty || structure_id.touched)"
+                                class="text-danger">
+                                    <span *ngIf="structure_id.errors?.['required']"> La structure est requise</span>
+                            </span>
+                            </div>
+                        </fieldset>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <fieldset class="border mb-3 p-3">
+                            <legend>Documentation</legend>
+                            <div class="row mb-3 bg-gray border" *ngFor="let f of files">
+                                <div class="col-12 col-md-4">
+                                    <img src="assets/images/pdf.png" style="height: 50px;" alt="">
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <p>{{f.name}}</p>
+                                    <a [href]="f.chemin" target="_blank">voir fichier</a>
+                                </div>
+                              
+                             
+                                <div class="col-12 col-md-1 align-items-center d-flex">
+                                    <button class="btn btn-sm btn-outline-danger"> Retirer</button>
+                                </div>
+                            </div>
+    
+                            <div class="row">
+                                <button (click)="openAddFile(addFileContent)" type="button" class="btn btn-outline-primary btn-sm">Ajouter un fichier</button>
+                            </div>
+                        </fieldset>
+                      </div>
+    
+                 
+                    </div>
+    
+                </div>
+                <div class="card-footer d-flex justify-content-end">
+                    <button type="submit" [disabled]="addForm.invalid || isLoading" class="btn-sm btn-warning btn-submit">Sauvegarder les modifications</button>
+                </div>
+            </div>
+        </form>
+    
+    
+    
+    <ng-template #addFileContent let-c="close" let-d="dismiss">
+        <form #addFileForm="ngForm" (ngSubmit)="addFile(addFileForm.value)">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title"></h4>
+          <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+        </div>
+        <div class="modal-body" >
+            <div class="row mb-3">
+                <p class="text-danger"><strong>NB:</strong> Prière charger des fichiers pdf  !</p>
+                <div class="form-goup col-12">
+                    <label for="">Nom du fichier</label>
+                    <input type="text" name="name_file" class="form-control" required ngModel>
+                </div>
+                <div class="form-goup col-12">
+                    <label for="">Fichier</label>
+                    <input accept=".pdf" type="file" name="file" class="form-control" required (change)="uploadFile($event)">
+                </div>
+            </div>
+           
+        </div>
+        <div class="modal-footer">
+          <button type="submit" [disabled]="addFileForm.invalid || isLoading" class="btn btn-outline-dark " >Sauvegarder <app-loading [isVisible]="isLoading"></app-loading></button>
+        </div>
+    </form>
+      </ng-template>

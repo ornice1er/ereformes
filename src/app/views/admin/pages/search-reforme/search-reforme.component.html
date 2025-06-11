@@ -1,0 +1,89 @@
+<div class="row p-2 bg-white">
+<div class="col-2">
+    <div class="form-group">
+        <label for="">Structure</label>
+        <select name="" id="" class="form-control" (change)="filterByStructure($event)">
+            <option *ngFor="let s of structures" value="{{s.id}}">{{s.designation}}</option>
+        </select>
+    </div>
+</div>
+<div class="col-2">
+    <div class="form-group">
+        <label for="">Nature</label>
+        <select name="" id="" class="form-control" (change)="filterByNature($event)">
+            <option *ngFor="let s of natures" value="{{s.id}}">{{s.libnature}}</option>
+        </select>
+    </div>
+</div>
+<div class="col-2">
+    <div class="form-group">
+        <label for="">Couverture</label>
+        <select name="" id="" class="form-control" (change)="filterByCover($event)">
+            <option *ngFor="let s of covers" value="{{s.id}}">{{s.lib_couvert}}</option>
+        </select>
+    </div>
+</div>
+<div class="col-2">
+    <div class="form-group">
+        <label for="">Type de réforme</label>
+        <select name="typeref" class="form-control" id="" ngModel (change)="filterByTypeR($event)">
+            <option value="SECTORIELLE">SECTORIELLE</option>
+            <option value="TRANSVERSALE">TRANSVERSALE</option>
+        </select>
+    </div>
+</div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+       <div class="card">
+           <div class="card-header">
+            <div class="d-flex mb-5 " *ngIf="buttonsPermission">
+              
+            </div>
+           </div>
+           <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-sm dataTable" >
+                    <thead class="table-secondary">
+                        <tr>
+                            <th style="width: 10px;">#</th>
+                            <th>Libellé</th>
+                            <th>Type</th>
+                            <th>Objectif global</th>
+                            <th>Population cible</th>
+                            <th>Structure impliquées</th>
+                            <th>Période d'exécution</th>
+                            <th>Etat MO</th>
+                            <th>Montant prévu</th>
+                            <th>PDF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let d of data2 ">
+                            <td>
+                                <div class="form-check mb-2">
+                                    <input (click)="checked(d)" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                
+                                </div>
+                            </td>
+                         
+                            <td>{{d.libref}}</td>
+                            <td>{{d.typeref}}</td>
+                            <td>{{d.objectif_glob}}</td>
+                            <td>{{d.popul_cible}}</td>
+                            <td>{{d.struct_impl}}</td>
+                            <td>{{d.periodexe}}</td>
+                            <td>{{d.etat_mor}}</td>
+                            <td>{{d.montant_prevu}}</td>
+                            <td></td>
+                        </tr>
+                    
+                    </tbody>
+                </table>
+                </div>
+           </div>
+       </div>
+    </div>
+    <!-- end col -->
+</div>

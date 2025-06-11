@@ -1,0 +1,394 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+
+            <div class="card-body">
+                <div class="row mb-5 " *ngIf="buttonsPermission">
+                    <a *ngIf="role=='saisie'"  class="col-12 col-md-2 mb-3 btn btn-info btn-sm btn-label waves-effect waves-light float-right me-3" routerLink="/admin/create-reforme">Ajouter</a>
+                    <button *ngIf="buttonsPermission.show"  (click)="show(showContent)" type="button" class="col-12 col-md-2 mb-3 btn btn-outline-primary btn-sm btn-label waves-effect waves-light me-3">
+                         <span>Consulter</span>
+                    </button>
+                    <button *ngIf="buttonsPermission.edit && role=='saisie'" (click)="goToEdit()" type="button"  class="col-12 col-md-2 mb-3 btn btn-outline-warning btn-sm btn-label waves-effect waves-light me-3">
+                       Editer</button>
+                    <button *ngIf="buttonsPermission.delete && role=='saisie'" (click)="delete()" type="button" class="col-12 col-md-2 mb-3 btn btn-outline-danger btn-sm btn-label waves-effect waves-light me-3">
+                         Supprimer</button>
+                         <button *ngIf="role=='publication' || role=='validation'" class="col-12 col-md-2 mb-3 btn btn-sm btn-outline-warning mx-1" nbTooltip="Retourner l'enregistrement" nbTooltipPlacement="top" (click)="openAff(affContent)">
+                             Retourner l'enregistrement
+                        </button>
+    
+                        <button *ngIf="role!='publication'" class="col-12 col-md-2 mb-3 btn btn-sm btn-outline-success mx-1" nbTooltip="Transmettre mon projet de réponse" nbTooltipPlacement="top" (click)="transUp()">
+                          Transmettre
+                        </button>
+                        <button *ngIf="role=='publication'" class="col-12 col-md-2 mb-3 btn btn-sm btn-outline-success mx-1" nbTooltip="Publier la réforme" nbTooltipPlacement="top" (click)="publish()">
+                          Publication
+                        </button>
+                   
+                        <button *ngIf="role=='saisie'"  (click)="edit(addObjectifResult)"  class="col-12 col-md-2 mb-3 btn btn-sm btn-outline-primary mx-1" nbTooltip=" Définir le périmètre d'action" nbTooltipPlacement="top">
+                            Définir les objectifs de la réfornes
+                          </button>
+                        <button *ngIf="role=='saisie'" (click)="edit(addResult)"  class="col-12 col-md-2 mb-3 btn btn-sm btn-outline-primary mx-1" nbTooltip=" Définir le périmètre d'action" nbTooltipPlacement="top">
+                            Enregistrer un résultat attendu
+                          </button>
+                          
+    
+                </div>
+
+                        <p>{{data.length}} élément(s)</p>
+                        <div class="table-responsive">
+                        <table class="table table-sm align-middle   table-nowrap mb-0 table-bordered" >
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th style="width: 10px;">#</th>
+                                    <th>Libellé</th>
+                                    <th>Type</th>
+                                    <th>Période</th>
+                                    <th>Date début</th>
+                                    <th>Date fin</th>
+                                
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let d of data ">
+                                    <td>
+                                        <div class="form-check mb-2">
+                                            <input (click)="checked(d)" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                        
+                                        </div>
+                                    </td>
+                                    <td>{{d.libref}}</td>
+                                    <td>{{d.typeref}}</td>
+                                    <td>{{d.periodexe | date:"longDate"}}</td>
+                                    <td>{{d.date_debut | date:"longDate"}}</td>
+                                    <td>{{d.date_fin | date:"longDate"}}</td>
+                                    
+                                </tr>
+                            
+                            </tbody>
+                        </table>
+                        </div>
+
+            </div><!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end col -->
+</div>
+
+<ng-template #addContent let-c="close" let-d="dismiss">
+    <form #addForm="ngForm" (ngSubmit)="store(addForm.value)">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Enregistrer un secteur</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body" >
+        <div class="row mb-3" >
+            <div class="form-goup col-12">
+                <label for="">Libellé</label>
+                <input type="text" name="name" class="form-control" ngModel>
+            </div>
+           
+        </div>
+       
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark" >Soumettre</button>
+    </div>
+</form>
+  </ng-template>
+<ng-template #affContent let-c="close" let-d="dismiss">
+    <form #affForm="ngForm" (ngSubmit)="storeAff(affForm.value)">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Retourner pour correction</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body" >
+        <div class="row mb-3" >
+            <div class="form-goup col-12">
+                <label for="">Motif <span class="text-danger ml-2">(*)</span></label>
+                <textarea #instruction="ngModel" name="instruction" required ngModel class="form-control"></textarea>
+                <span *ngIf="instruction.invalid && (instruction.dirty || instruction.touched)"
+                class="text-danger">
+                    <span *ngIf="instruction.errors?.['required']"> Le Libellé de l'objectif est requis</span>
+            </span>
+            </div>
+           
+        </div>
+       
+    </div>
+    <div class="modal-footer">
+      <button type="submit" [disabled]="affForm.invalid" class="btn btn-outline-dark" >Retourner</button>
+    </div>
+</form>
+  </ng-template>
+
+  <ng-template #editContent let-c="close" let-d="dismiss">
+    <form #editForm="ngForm" (ngSubmit)="update(editForm.value)">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title"></h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body" >
+        <div class="row mb-3">
+            <div class="form-goup col-12">
+                <label for="">Libellé</label>
+                <input type="text" name="name" class="form-control" [(ngModel)]="selected_data.name">
+            </div>
+        </div>
+       
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark" >Sauvegarder</button>
+    </div>
+</form>
+  </ng-template>
+
+  <ng-template #showContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Détails des informations</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+      </div>
+
+      <div class="modal-body">
+          <div class="p-3 bg-light mb-3" *ngIf="selected_data?.affectation !=null || selected_data?.affectation !=undefined ">
+            <h6>Instruction : </h6>  
+            <p>{{selected_data?.affectation?.instruction}}</p>
+          </div>
+          <ul ngbNav #nav="ngbNav" class="nav-tabs">
+            <li ngbNavItem>
+              <a ngbNavLink>Détails de la réforne</a>
+              <ng-template ngbNavContent>
+                <div class="table-responsive table-card">
+                    <table class="table table-borderless align-middle mb-0">
+                        <tbody>
+                            <tr >
+                                <td class="fw-medium">Libellé</td>
+                                <td >{{selected_data.libref}} </td>
+                            </tr>
+                       
+                            <tr >
+                                <td class="fw-medium">Type</td>
+                                <td >{{selected_data.typeref}} </td>
+                            </tr>
+                       
+                            <tr >
+                                <td class="fw-medium">Objectif</td>
+                                <td >{{selected_data.objectif_glob}} </td>
+                            </tr>
+                       
+                            <tr >
+                                <td class="fw-medium">Population cible</td>
+                                <td >{{selected_data.popul_cible}} </td>
+                            </tr>
+                       
+                            <tr >
+                                <td class="fw-medium">Structure impliquées</td>
+                                <td >{{selected_data.struct_impl}} </td>
+                            </tr>
+                       
+                            <tr >
+                                <td class="fw-medium">Période</td>
+                                <td >{{selected_data.periodexe}} </td>
+                            </tr>
+                       
+                            <tr >
+                                <td class="fw-medium">Date début</td>
+                                <td >{{selected_data.date_debut}} </td>
+                            </tr>
+                       
+                            <tr >
+                                <td class="fw-medium">Date fin</td>
+                                <td >{{selected_data.date_fin}} </td>
+                            </tr>
+                            <tr >
+                                <td class="fw-medium">Date enregistrement</td>
+                                <td >{{selected_data.date_enreg}} </td>
+                            </tr>
+                            <tr >
+                                <td class="fw-medium">Cadre institutionnel de mise en oeuvre</td>
+                                <td >{{selected_data.cadreinst_mor}} </td>
+                            </tr>
+                            <tr >
+                                <td class="fw-medium">Eate de mise en oeuvre fin</td>
+                                <td >{{selected_data.etat_mor}} </td>
+                            </tr>
+                            <tr >
+                                <td class="fw-medium">Montant réalisé</td>
+                                <td >{{selected_data.montant_prevu}} </td>
+                            </tr>
+                            <tr >
+                                <td class="fw-medium">Montant prévu</td>
+                                <td >{{selected_data.montant_trealise}} </td>
+                            </tr>
+                            <tr >
+                                <td class="fw-medium">Difficulité</td>
+                                <td >{{selected_data.difficult}} </td>
+                            </tr>
+                            <tr >
+                                <td class="fw-medium">Solution</td>
+                                <td >{{selected_data.solution}} </td>
+                            </tr>
+                            <tr >
+                                <td class="fw-medium">Perspective</td>
+                                <td >{{selected_data.perspective}} </td>
+                            </tr>
+                       
+                        </tbody>
+                    </table>
+        
+                
+                </div>
+                          </ng-template>
+            </li>
+            <li ngbNavItem>
+              <a ngbNavLink>Objectifs et résultats attendus</a>
+              <ng-template ngbNavContent>
+                <fieldset *ngFor="let o of selected_data.objectifs" class="mb-3">
+                    <legend> <strong>{{o.libobjectif}}</strong></legend>
+                    <p class="text-danger" (click)="deleteR(o.id)" style="cursor: pointer;"><u>Retirer</u></p>
+                    <table class="table table-sm table-bordered" *ngIf="o.results.length>0">
+                        <thead>
+                            <th>#</th>
+                            <th>Libellé</th>
+                            <th>Indicateur</th>
+                            <th>Valeur cible</th>
+                            <th>Valeur référence</th>
+                            <th>Statut</th>
+                            <th>Action</th>
+
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let r of o.results; let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{r.libresult}}</td>
+                                <td>{{r.indicateur}}</td>
+                                <td>{{r.valeur_cible}}</td>
+                                <td>{{r.valeurref}}</td>
+                                <td>
+                                    <span class="p-2 text-white bg-{{r.status==0 ?'success':'bg-warning'}}">
+                                        {{r.status == 0?"En attente d'atteinte":'atteint'}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <p class="text-danger" (click)="deleteResult(r.id)" style="cursor: pointer;"><u>Retirer</u></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+              </ng-template>
+            </li>
+            <li ngbNavItem>
+                <a ngbNavLink>Fichiers joints</a>
+                <ng-template ngbNavContent>
+                    <div class="row d-flex mb-3 bg-gray border" *ngFor="let  f of selected_data?.files">
+                        <div class="col-12 col-md-4">
+                            <img src="assets/images/pdf.png" style="height: 50px;" alt="">
+                        </div>
+                        <div class="col-12 col-md-4 align-items-center">
+                            <p>{{f.name}}</p>
+                        </div>
+                        <div class="col-12 col-md-4">
+
+                            <a [href]="f.chemin" target="_blank" class="align-item-center">voir fichier</a>
+                        </div>
+                      
+                    </div>
+                </ng-template>
+
+            </li>
+          </ul>
+          
+          <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    
+      </div>
+</ng-template>
+<ng-template #addResult let-c="close" let-d="dismiss">
+    <form #rForm="ngForm" (ngSubmit)="storeR(rForm.value)">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Enregistrer un résultat attendu</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body" >
+        <div class="row mb-3" >
+            <div class="form-goup col-12 mb-3">
+                <label for="">Libellé de l'objectif <span class="text-danger ml-2">(*)</span></label>
+                <select #objectif_id="ngModel"  name="objectif_id" class="form-control" required ngModel id="">
+                    <option *ngFor="let o of objectifs" [value]="o.id">{{o.libobjectif}}</option>
+
+                </select>
+                <span *ngIf="objectif_id.invalid && (objectif_id.dirty || objectif_id.touched)"
+                class="text-danger">
+                    <span *ngIf="objectif_id.errors?.['required']"> Le Libellé de l'objectif  est requis</span>
+            </span>
+            </div>
+            <div class="form-goup col-12">
+                <label for="">Libellé résultat <span class="text-danger ml-2">(*)</span></label>
+                <input  #libresult="ngModel" type="text" name="libresult" class="form-control" required ngModel>
+                <span *ngIf="libresult.invalid && (libresult.dirty || libresult.touched)"
+                class="text-danger">
+                    <span *ngIf="libresult.errors?.['required']"> Le Libellé du résultat est requis</span>
+            </span>
+            </div>
+            <div class="form-goup col-12">
+                <label for="">Indicateur <span class="text-danger ml-2">(*)</span></label>
+                <input #indicateur="ngModel" type="text" name="indicateur" class="form-control" required ngModel>
+                <span *ngIf="indicateur.invalid && (indicateur.dirty || indicateur.touched)"
+                class="text-danger">
+                    <span *ngIf="indicateur.errors?.['required']"> L'indicateur  est requis</span>
+            </span>
+            </div>
+            <div class="form-goup col-12">
+                <label for="">Valeur cible <span class="text-danger ml-2">(*)</span></label>
+                <input #valeur_cible="ngModel" type="text" name="valeur_cible" class="form-control" required ngModel>
+                <span *ngIf="valeur_cible.invalid && (valeur_cible.dirty || valeur_cible.touched)"
+                class="text-danger">
+                    <span *ngIf="valeur_cible.errors?.['required']"> La valeur cible est requise</span>
+            </span>
+            </div>
+            <div class="form-goup col-12">
+                <label for="">Valeur référence <span class="text-danger ml-2">(*)</span></label>
+                <input #valeurref="ngModel" type="text" name="valeurref" class="form-control" required ngModel>
+                <span *ngIf="valeurref.invalid && (valeurref.dirty || valeurref.touched)"
+                class="text-danger">
+                    <span *ngIf="valeurref.errors?.['required']"> La valeur référence est requise est requise</span>
+            </span>
+            </div>
+           
+        </div>
+       
+    </div>
+    <div class="modal-footer">
+      <button type="submit" [disabled]="rForm.invalid" class="btn btn-outline-dark" >Soumettre</button>
+    </div>
+</form>
+  </ng-template>
+<ng-template #addObjectifResult let-c="close" let-d="dismiss">
+    <form #addObjForm="ngForm" (ngSubmit)="storeObjectif(addObjForm.value)">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Enregistrer un objectif</h4>
+          <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+        </div>
+        <div class="modal-body" >
+            <div class="row " >
+                <div class="form-goup col-12 mb-3">
+                    <label for="">Libellé de l'objectif <span class="text-danger ml-2">(*)</span></label>
+                    <input #libobjectif="ngModel" type="text" name="libobjectif" required class="form-control" ngModel>
+                    <span *ngIf="libobjectif.invalid && (libobjectif.dirty || libobjectif.touched)"
+                    class="text-danger">
+                        <span *ngIf="libobjectif.errors?.['required']"> Le Libellé de l'objectif est requis</span>
+                </span>
+                </div>
+                <!-- <div class="form-goup col-12 mb-3">
+                    <label for="">Réformes</label>
+                    <select  name="reforme_id" class="form-control" ngModel id="">
+                        <option *ngFor="let o of reformes" [value]="o.id">{{o.libref}}</option>
+                    </select>
+                </div> -->
+            </div>
+           
+        </div>
+        <div class="modal-footer">
+          <button type="submit" [disabled]="addObjForm.invalid" class="btn btn-outline-dark" >Enregistrer</button>
+        </div>
+    </form>
+  </ng-template>

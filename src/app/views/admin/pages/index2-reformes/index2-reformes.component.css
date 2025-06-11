@@ -1,0 +1,11 @@
+
+thead, tbody, tfoot, tr, td, th{
+    white-space: pre-wrap;
+    color: black;
+}
+div.dataTables_wrapper div.dataTables_length select {
+    width: 70px !important;
+}
+button{
+    padding: 8px 20px 8px 20px !important;
+}

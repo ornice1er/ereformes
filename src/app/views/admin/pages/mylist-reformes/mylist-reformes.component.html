@@ -1,0 +1,232 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+
+            <div class="card-body">
+                <div class="d-flex mb-5 " *ngIf="buttonsPermission">
+                    <a class="btn btn-info btn-sm btn-label waves-effect waves-light float-right me-3" routerLink="/admin/create-reforme">Ajouter</a>
+                    <button *ngIf="buttonsPermission.show"  (click)="show(showContent)" type="button" class="btn btn-outline-primary btn-sm btn-label waves-effect waves-light me-3">
+                         <span>Consulter</span>
+                    </button>
+                    <button *ngIf="buttonsPermission.edit" (click)="edit(editContent)" type="button"  class="btn btn-outline-warning btn-sm btn-label waves-effect waves-light me-3">
+                       Editer</button>
+                    <button *ngIf="buttonsPermission.delete" (click)="delete()" type="button" class="btn btn-outline-danger btn-sm btn-label waves-effect waves-light me-3">
+                         Supprimer</button>
+                         <!-- <button *ngIf="role=='publication' || role=='validation'" class="btn btn-sm btn-outline-warning mx-1" nbTooltip="Retourner l'enregistrement" nbTooltipPlacement="top" (click)="openAff(affContent)">
+                             Retourner l'enregistrement
+                        </button>
+    
+                        <button *ngIf="role!='publication'" class="btn btn-sm btn-outline-success mx-1" nbTooltip="Transmettre mon projet de réponse" nbTooltipPlacement="top" (click)="transUp()">
+                          Transmission
+                        </button>
+                        <button *ngIf="role=='publication'" class="btn btn-sm btn-outline-success mx-1" nbTooltip="Publier la réforme" nbTooltipPlacement="top" (click)="publish()">
+                          Publication
+                        </button> -->
+    
+                </div>
+
+                        <p>{{data.length}} élément(s)</p>
+                        <div class="table-responsive">
+                        <table class="table table-sm align-middle   table-nowrap mb-0 table-bordered" >
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th style="width: 10px;">#</th>
+                                    <th >Libellé</th>
+                                    <!-- <th>Type</th> -->
+                                    <th>Période</th>
+                                    <th>Date début</th>
+                                    <th>Date fin</th>
+                                    <th>Etat</th>
+                                    <th>statut</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let d of data ">
+                                    <td>
+                                        <div class="form-check mb-2">
+                                            <input (click)="checked(d)" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                        
+                                        </div>
+                                    </td>
+                                    <td>{{d.libref}}</td>
+                                    <!-- <td>{{d.typeref}}</td> -->
+                                    <td>{{d.periodexe}}</td>
+                                    <td>{{d.date_debut | date:"longDate"}}</td>
+                                    <td>{{d.date_fin | date:"longDate"}}</td>
+                                    <td>{{d.etat_mor}}</td>
+                                    <td>
+                                        <span *ngIf="d.isPublished" class="bg-success p-1 text-white rounded">Publiée</span>
+                                        <span *ngIf="!d.isPublished" class="bg-warning p-1 text-white rounded">En attente</span>
+
+                                    </td>
+                                </tr>
+                            
+                            </tbody>
+                        </table>
+                        </div>
+
+            </div><!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end col -->
+</div>
+
+<ng-template #addContent let-c="close" let-d="dismiss">
+    <form #addForm="ngForm" (ngSubmit)="store(addForm.value)">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Enregistrer un secteur</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body" >
+        <div class="row mb-3" >
+            <div class="form-goup col-12">
+                <label for="">Libellé</label>
+                <input type="text" name="name" class="form-control" ngModel>
+            </div>
+           
+        </div>
+       
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark" >Soumettre</button>
+    </div>
+</form>
+  </ng-template>
+<ng-template #affContent let-c="close" let-d="dismiss">
+    <form #affForm="ngForm" (ngSubmit)="storeAff(affForm.value)">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Retourner pour correction</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body" >
+        <div class="row mb-3" >
+            <div class="form-goup col-12">
+                <label for="">Motif</label>
+                <textarea name="instructtion" ngModel class="form-control"></textarea>
+            </div>
+           
+        </div>
+       
+    </div>
+    <div class="modal-footer">
+      <button type="submit" [disabled]="affForm.invalid" class="btn btn-outline-dark" >Retourner</button>
+    </div>
+</form>
+  </ng-template>
+
+  <ng-template #editContent let-c="close" let-d="dismiss">
+    <form #editForm="ngForm" (ngSubmit)="update(editForm.value)">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title"></h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body" >
+        <div class="row mb-3">
+            <div class="form-goup col-12">
+                <label for="">Libellé</label>
+                <input type="text" name="name" class="form-control" [(ngModel)]="selected_data.name">
+            </div>
+        </div>
+       
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark" >Sauvegarder</button>
+    </div>
+</form>
+  </ng-template>
+
+  <ng-template #showContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Détails des informations
+        </h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+      </div>
+
+      <div class="modal-body" id="content-id">
+          <h3 class="font-weight-bold text-center mb-3">Détails de la réforme enregistrée</h3>
+        <div class="table-responsive table-card">
+            <table class="table table-borderless align-middle mb-0">
+                <tbody>
+                    <tr >
+                        <td class="fw-medium">Libellé</td>
+                        <td >{{selected_data.libref}} </td>
+                    </tr>
+               
+                    <tr >
+                        <td class="fw-medium">Type</td>
+                        <td >{{selected_data.typeref}} </td>
+                    </tr>
+               
+                    <tr >
+                        <td class="fw-medium">Objectif</td>
+                        <td >{{selected_data.objectif_glob}} </td>
+                    </tr>
+               
+                    <tr >
+                        <td class="fw-medium">Population cible</td>
+                        <td >{{selected_data.popul_cible}} </td>
+                    </tr>
+               
+                    <tr >
+                        <td class="fw-medium">Structure impliquées</td>
+                        <td >{{selected_data.struct_impl}} </td>
+                    </tr>
+               
+                    <tr >
+                        <td class="fw-medium">Période</td>
+                        <td >{{selected_data.periodexe}} </td>
+                    </tr>
+               
+                    <tr >
+                        <td class="fw-medium">Date début</td>
+                        <td >{{selected_data.date_debut}} </td>
+                    </tr>
+               
+                    <tr >
+                        <td class="fw-medium">Date fin</td>
+                        <td >{{selected_data.date_fin}} </td>
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Date enregistrement</td>
+                        <td >{{selected_data.date_enreg}} </td>
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Cadre institutionnel de mise en oeuvre</td>
+                        <td >{{selected_data.cadreinst_mor}} </td>
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Eate de mise en oeuvre fin</td>
+                        <td >{{selected_data.etat_mor}} </td>
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Montant réalisé</td>
+                        <td >{{selected_data.montant_prevu}} </td>
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Montant prévu</td>
+                        <td >{{selected_data.montant_trealise}} </td>
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Difficulité</td>
+                        <td >{{selected_data.difficult}} </td>
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Solution</td>
+                        <td >{{selected_data.solution}} </td>
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Perspective</td>
+                        <td >{{selected_data.perspective}} </td>
+                    </tr>
+               
+                </tbody>
+            </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <small class="d-flex justify-content-end"><button class="btn btn-sm btn-primary" (click)="openPDF()">Imprimer cette fiche</button></small>
+
+      </div>
+</ng-template>

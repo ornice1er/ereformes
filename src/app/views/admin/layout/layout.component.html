@@ -1,0 +1,137 @@
+<mat-toolbar color="">
+    <button class="text-dark" mat-icon-button (click)="toggleMenu()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>e Reformes</span>
+       <div class="">
+      <button mat-button [matMenuTriggerFor]="userMenu">
+        <img [src]="'assets/user.jpg'"  class="avatar" alt="avatar utilisateur">
+        <span class="username text-dark">{{ user?.name  ?? "Non défini"}}</span>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+
+      <mat-menu #userMenu="matMenu">
+        <div class="menu-header">
+          <img [src]="'assets/user.jpg'"  class="avatar" alt="avatar">
+          <div>
+            <strong>{{ user?.name }}</strong>
+            <p>{{ user?.email }}</p>
+          </div>
+        </div>
+        <button mat-menu-item  (click)="openAddModal(profil)">
+          <mat-icon>edit</mat-icon>
+          <span>Modifier le profil</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button class="btn btn-sm btn-danger" (click)="logout()">Déconnexion</button>
+      </mat-menu>
+    </div>
+  </mat-toolbar>
+  
+  <mat-sidenav-container class="">
+    <mat-sidenav #sidenav mode="side" class="menu-bg rounded-0" [(opened)]="menuOpen">
+      <mat-nav-list>
+        <a mat-list-item routerLink="/admin/dashboard" routerActiveLink="active"><span>Accueil</span></a>
+        <ng-container *ngFor="let m of menu; let i= index">
+        <a mat-list-item *ngIf="!m.isTitle && !m.hasChildren" [routerLink]="m.route" routerActiveLink="active"><span>{{m.name}}</span></a>
+
+         <mat-expansion-panel *ngIf="!m.isTitle && m.hasChildren" class=" shadow-none" >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{m.name}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-nav-list>
+            <a mat-list-item *ngFor="let sm of m.children" routerLink="{{sm?.route}}" routerActiveLink="active"><span>{{sm?.name}}</span></a>
+          </mat-nav-list>
+        </mat-expansion-panel>
+        </ng-container>
+       
+
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="p-3">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+
+  
+  <ng-template #profil let-modal>
+        <form #frmusager="ngForm" (ngSubmit)="saveUsager(frmusager.value)" class="form-horizontal"
+            novalidate="">
+            <div class="modal-header bg-mat-primary">
+                <h5 class="modal-title text-white" id="modal-basic-title">Mon profil</h5>
+                <button type="button" class="close text-white" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    X
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group  row">
+
+                    <label for="nom1" class="col-sm-3 control-label"> Nom * </label>
+
+                    <div class="col-sm-9">
+
+                        <input type="text" class="form-control has-error" id="nom1" name="nom" value="{{user?.nom}}"
+                            [(ngModel)]="user.nom" required>
+
+
+                    </div>
+
+                </div>
+
+                <div class="form-group  row">
+
+                    <label for="prenoms" class="col-sm-3 control-label"> Prénoms * </label>
+
+                    <div class="col-sm-9">
+
+                        <input type="text" class="form-control has-error" id="prenoms" name="prenoms" value="{{user?.prenoms}}"
+                            [(ngModel)]="user.prenoms" required>
+
+
+
+                    </div>
+
+                </div>
+
+                <div class="form-group  row">
+
+                    <label for="email1" class="col-sm-3 control-label"> Email *</label>
+
+                    <div class="col-sm-9">
+
+                        <input type="email" class="form-control has-error" id="email1" name="email" value="{{user?.email}}"
+                            [(ngModel)]="user.email" required>
+                    </div>
+
+                </div>
+
+                <div class="form-group  row">
+
+                    <label for="tel2" class="col-sm-3 control-label"> Téléphone *</label>
+
+                    <div class="col-sm-9">
+
+                        <input type="text" numbers-only="numbers-only" class="form-control has-error" id="tel2"
+                            name="tel" value="{{user?.tel}}" [(ngModel)]="user.tel" required>
+
+
+
+                    </div>
+
+                </div>
+
+           
+            </div>
+            <div class="modal-footer">
+
+                <button type="submit" class="btn btn-primary" [disabled]="frmusager.invalid"><i class="fas fa-save"></i>&nbsp;
+                    Enregistrer</button>
+
+
+            </div>
+        </form>
+
+    </ng-template>

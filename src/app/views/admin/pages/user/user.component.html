@@ -1,0 +1,401 @@
+
+
+   <h2 class="text-center mb-3">Liste des utilisateurs</h2>
+   <div class="row">
+    <div class="col-lg-12">
+        <div class="card p-1">
+        <div class="d-flex justify-content-between">
+            <button *ngIf="buttonsPermission.add" class="btn btn-sm btn-info"  (click)="add(addContent)">Ajouter</button>
+           
+            <div class="align-self-center d-flex">
+                <div class="input-group">
+                    <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                    <option value="">Filtrer Par</option>
+                    </select>
+                    <input type="text" class="form-control" name="search_text" [(ngModel)]="search_text"   (ngModelChange)="onSearchChange()" placeholder="Rechercher..">
+                    <button (click)="resetSearch()" class="btn btn-outline-primary" type="button"><i class="fa fa-rotate-left" aria-hidden="true"></i> </button>
+                </div>
+            </div>
+        </div>
+            <div class="card-body">
+
+                        <p>{{isPaginate ? pg.total : data.length}} élément(s)</p>
+                        <div class="table-responsive">
+                        <table class="table" >
+                            <thead class="">
+                                <tr>
+                                    <th style="width: 10px;">#</th>
+                                    <th>Identité</th>
+                                    <th>email</th>
+                                    <th>Rôle</th>
+                                    <!-- <th>Accès tableau de bord</th> -->
+                                    <th>status</th>
+                        
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let d of data | paginate: {
+                                    id:'ngxP1',
+                                    itemsPerPage: pg.pageSize,
+                                    currentPage: pg.p,
+                                    totalItems: pg.total } | sampleSearch:search_text">
+                                 <td class="position-relative" style="z-index: 10;"> 
+                                    <div class="form-check mb-2">
+                                        <input
+                                        (click)="checked(d)"
+                                        class="form-check-input"
+                                        type="radio"
+                                        name="selectedDoc"
+                                        [value]="d.id"
+                                        [(ngModel)]="selectedId"
+                                        id="radio-{{ d.id }}"
+                                        />
+                                    </div>
+
+                                    <div *ngIf="selectedId === d.id" class="overlay-panel-right">
+                                        <button
+                                        class="btn btn-info btn-sm btn-label waves-effect waves-light me-3 mb-1"
+                                        (click)="add(addContent)"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Ajouter"
+                                        [disabled]="loading"
+                                        >
+                                        <i class="bi bi-plus-lg"></i>
+                                        </button>
+
+                                        <button
+                                        *ngIf="buttonsPermission.show"
+                                        (click)="show(showContent)"
+                                        type="button"
+                                        class="btn btn-outline-primary btn-sm btn-label waves-effect waves-light mb-1 me-3"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Consulter"
+                                        [disabled]="loading"
+                                        >
+                                        <i class="bi bi-eye"></i>
+                                        </button>
+
+                                        <button
+                                        *ngIf="buttonsPermission.edit"
+                                        (click)="edit(editContent)"
+                                        type="button"
+                                        class="btn btn-outline-warning btn-sm btn-label waves-effect waves-light mb-1 me-3"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Éditer"
+                                        [disabled]="loading"
+                                        >
+                                        <i class="bi bi-pencil"></i>
+                                        </button>
+
+                                        <button
+                                        *ngIf="buttonsPermission.delete"
+                                        (click)="delete()"
+                                        type="button"
+                                        class="btn btn-outline-danger btn-sm btn-label waves-effect waves-light me-3 mb-1"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Supprimer"
+                                        [disabled]="loading"
+
+                                        >
+                                        <i class="bi bi-trash"></i>
+                                        </button>
+
+                                        <button
+                                        *ngIf="is_active != null && !is_active"
+                                        (click)="setStatus(1)"
+                                        type="button"
+                                        class="btn btn-outline-success btn-sm btn-label waves-effect waves-light me-3 mb-1"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Activer"
+                                        [disabled]="loading"
+                                        >
+                                        <i class="bi bi-toggle-on"></i>
+                                        </button>
+
+                                        <button
+                                        *ngIf="is_active != null && is_active"
+                                        (click)="setStatus(0)"
+                                        type="button"
+                                        class="btn btn-outline-danger btn-sm btn-label waves-effect waves-light me-3 mb-1"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Désactiver"
+                                        [disabled]="loading"
+
+                                        >
+                                        <i class="bi bi-toggle-off"></i>
+                                        </button>
+
+                                        <button
+                                        *ngIf="buttonsPermission.edit"
+                                        (click)="show(resetContent)"
+                                        type="button"
+                                        class="btn btn-outline-danger btn-sm btn-label waves-effect waves-light me-3 mb-1"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Réinitialiser le mot de passe"
+                                        [disabled]="loading"
+                                        >
+                                        <i class="bi bi-arrow-counterclockwise"></i>
+                                        </button>
+
+                                        <button
+                                        type="button"
+                                        class="btn-close float-end"
+                                        (click)="selectedId = null"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Fermer"
+                                        ></button>
+                                    </div>
+                                    </td>
+
+
+
+
+
+                                    <td>{{d.name}}</td>
+                                    <td>{{d.email}}</td>
+                                 
+                                    <td>
+                                        <ul>
+                                            <li *ngFor="let r of d.roles">{{r.name}}</li>
+                                        </ul>
+                                    </td>
+                                    <!-- <td>
+                                        <span *ngFor="let dt of d.dash_tag">{{dt}} |</span>
+                                    </td> -->
+
+                                    <td>
+                                        <span *ngIf="d.is_active" class="p-1 rounded text-white  bg-success">Actif</span>
+                                        <span *ngIf="!d.is_active" class="p-1 rounded text-white bg-danger">Bloqué</span>
+
+                                        </td>
+                                </tr>
+
+                             <tr *ngIf="search_text !== '' && (data | sampleSearch:search_text).length === 0">
+                                <td colspan="5" class="text-center">
+                                    <p class="text-muted">Recherche avancée en cours...</p>
+                                    <button class="btn btn-outline-secondary btn-sm" (click)="resetSearch()">
+                                        Réinitialiser la recherche
+                                        </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                        <pagination-controls 
+                        id="ngxP1"
+                        (pageChange)="getPage($event)"
+                      [maxSize]="9"
+                      [directionLinks]="true"
+                      [autoHide]="true"
+                      [responsive]="true"
+                      [previousLabel]="'Précédent'"
+                      [nextLabel]="'Suivant'"
+                      [screenReaderPaginationLabel]="'Pagination'"
+                      [screenReaderPageLabel]="'page'"
+                      [screenReaderCurrentLabel]="'Vous êtes sur la page'">
+                     </pagination-controls>
+
+            </div><!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end col -->
+</div>
+
+<ng-template #addContent let-modal>
+    <form #addForm="ngForm" (ngSubmit)="store(addForm.value)">
+    <div class="modal-header">
+      <h6 class="modal-title" id="modal-basic-title">Enregistrer un  compte utilisateur</h6>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body" >
+        <div class="row mb-3" >
+              <div class=" form-group col-12 mb-3">
+                <label for="">Nom <span class="text-danger ml-2">(*)</span></label>
+                <input type="text" name="lastname" class="form-control" ngModel>
+            </div>
+              <div class=" form-group col-12 mb-3">
+                <label for="">Prénoms <span class="text-danger ml-2">(*)</span></label>
+                <input type="text" name="firstname" class="form-control" ngModel>
+            </div>
+              <div class=" form-group col-12 mb-3">
+                <label for="">Date de naissance <span class="text-danger ml-2">(*)</span></label>
+                <input type="date" name="birthdate" class="form-control" ngModel>
+            </div>
+            <div class=" form-group col-12 mb-3">
+                <label for="">Lieu de naissance <span class="text-danger ml-2">(*)</span></label>
+                <input type="text" name="birthplace" class="form-control" ngModel>
+            </div>
+            <div class=" form-group col-12 mb-3">
+                <label for="">Adresse<span class="text-danger ml-2">(*)</span></label>
+                <input type="text" name="address" class="form-control" ngModel>
+            </div>
+            <div class=" form-group col-12 mb-3">
+                <label for="">Email <span class="text-danger ml-2">(*)</span></label>
+                <input type="text" name="email" class="form-control" ngModel>
+            </div>
+            <div class=" form-group col-12 mb-3">
+                <label for="">Contact <span class="text-danger ml-2">(*)</span></label>
+                <input type="text" name="phone" class="form-control" ngModel>
+            </div>
+            <div class=" form-group col-12 mb-3">
+                <label for="">Rôle <span class="text-danger ml-2">(*)</span></label>
+                <ng-select name="roles" ngModel [multiple]="true">
+                    <ng-option *ngFor="let s of roles" [value]="s.name">{{s.name}}</ng-option>
+                </ng-select>
+            </div>
+        </div>
+       
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark" [disabled]="addForm.invalid || loading"  >Créer le compte <app-loading [isVisible]="loading"></app-loading></button>
+    </div>
+</form>
+  </ng-template>
+
+  <ng-template #editContent let-modal>
+    <form #editForm="ngForm" (ngSubmit)="update(editForm.value)">
+    <div class="modal-header">
+      <h6 class="modal-title" id="modal-basic-title">Modifier un utilisateur</h6>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body" >
+        <div class="row mb-3">
+                  <div class=" form-group col-12 mb-3">
+                <label for="">Nom <span class="text-danger ml-2">(*)</span></label>
+                <input type="text" name="lastname" class="form-control" [(ngModel)]="selected_data.lastname">
+            </div>
+              <div class=" form-group col-12 mb-3">
+                <label for="">Prénoms <span class="text-danger ml-2">(*)</span></label>
+                <input type="text" name="firstname" class="form-control" [(ngModel)]="selected_data.firstname">
+            </div>
+              <div class=" form-group col-12 mb-3">
+                <label for="">Date de naissance <span class="text-danger ml-2">(*)</span></label>
+                <input type="date" name="birthdate" class="form-control" [(ngModel)]="selected_data.birthdate">
+            </div>
+            <div class=" form-group col-12 mb-3">
+                <label for="">Lieu de naissance <span class="text-danger ml-2">(*)</span></label>
+                <input type="text" name="birthplace" class="form-control" [(ngModel)]="selected_data.birthplace">
+            </div>
+            <div class=" form-group col-12 mb-3">
+                <label for="">Adresse<span class="text-danger ml-2">(*)</span></label>
+                <input type="text" name="address" class="form-control" [(ngModel)]="selected_data.address">
+            </div>
+            <div class=" form-group col-12 mb-3">
+                <label for="">Email <span class="text-danger ml-2">(*)</span></label>
+                <input type="text" name="email" class="form-control" [(ngModel)]="selected_data.email">
+            </div>
+            <div class=" form-group col-12 mb-3">
+                <label for="">Contact <span class="text-danger ml-2">(*)</span></label>
+                <input type="text" name="phone" class="form-control" [(ngModel)]="selected_data.email">
+            </div>
+            <div class=" form-group col-12 mb-3">
+                <label for="">rôle <span class="text-danger ml-2">(*)</span></label>
+                <ng-select name="roles" [multiple]="true" [(ngModel)]="selectedRoles">
+                    <ng-option *ngFor="let s of roles" [value]="s.name">{{s.name}}</ng-option>
+                </ng-select>  
+             </div>
+
+           
+        </div>
+       
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark" [disabled]="editForm.invalid || loading" >Sauvegarder <app-loading [isVisible]="loading"></app-loading></button>
+    </div>
+</form>
+  </ng-template>
+  <ng-template #resetContent let-modal>
+    <form #editForm="ngForm" (ngSubmit)="resetPassword(editForm.value)">
+    <div class="modal-header">
+      <h6 class="modal-title" id="modal-basic-title">Réinitialiser le mot de passe </h6>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body" >
+        <div class="row mb-3">
+        
+            <div class=" form-group col-12 mb-3">
+                <label for="">Email <span class="text-danger ml-2">(*)</span></label>
+                <input type="text" name="email" class="form-control" [(ngModel)]="selected_data.email">
+            </div> 
+            <div class=" form-group col-12 mb-3">
+                <label for="">Mot de passe <span class="text-danger ml-2">(*)</span></label>
+                <input type="password" name="password" class="form-control" minlength="8" ngModel>
+            </div> 
+            <div class=" form-group col-12 mb-3">
+                <label for="">Confirmer le mot de passe <span class="text-danger ml-2">(*)</span></label>
+                <input type="password" name="password_confirmation" class="form-control" minlength="8" ngModel>
+            </div> 
+           
+          
+        </div>
+       
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark" [disabled]="editForm.invalid || loading" >Réinitialiser <app-loading [isVisible]="loading"></app-loading></button>
+    </div>
+</form>
+  </ng-template>
+
+  <ng-template #showContent let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Détails des informations</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="table-responsive table-card">
+            <table class="table table-borderless align-middle mb-0">
+                <tbody>
+                  
+               
+                    <tr >
+                        <td class="fw-medium">Nom</td>
+                        <td >{{selected_data.lastname}} </td>
+                      
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Prénoms</td>
+                        <td >{{selected_data.firstname}} </td>
+                      
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Email</td>
+                        <td >{{selected_data.email}} </td>
+                      
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Contact</td>
+                        <td >{{selected_data.phone}} </td>
+                      
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Date de naissance</td>
+                        <td >{{selected_data.birthdate | date:"dd-MM-yyyy"}} </td>
+                      
+                    </tr>
+                    <tr >
+                        <td class="fw-medium">Lieu de naissance</td>
+                        <td >{{selected_data.birthplace}} </td>
+                      
+                    </tr>
+               
+                    <tr >
+                        <td class="fw-medium">rôle</td>
+                        <td >{{selected_data.roles[0].name}} </td>
+                      
+                    </tr>
+               
+                </tbody>
+            </table>
+        </div>
+      </div>
+</ng-template>

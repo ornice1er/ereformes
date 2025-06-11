@@ -1,0 +1,5 @@
+
+thead, tbody, tfoot, tr, td, th{
+    white-space: pre-wrap;
+    color: black;
+}

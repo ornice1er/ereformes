@@ -47,6 +47,8 @@ pg={
    search_text=""
  loading=false
   remoteSearchData: any[] = []
+     selectedId: number | null = null;
+  is_active=null
   constructor(
     private reformeService:ReformeService,
     private resultService:ResultatService,
@@ -93,15 +95,16 @@ pg={
       this.isPaginate=res.isPaginate
       if (this.isPaginate) {
         this.data=res.data.data
+        this.data2=res.data.data
         this.pg.p=res.data.current_page
         this.pg.total=res.data.total
       }else{
       this.data=res.data
+      this.data2=res.data
       this.pg.p=1
       this.pg.total=res.data.length
       }
      
-     this.data2=res.data
       this.modalService.dismissAll()
       
     },
@@ -388,6 +391,23 @@ pg={
 
     })
   }
+
+    setStatus(value:any){
+  
+      this.toastrService.warning("Opération en cours")
+        this.loading=true
+          this.reformeService.setStatus(this.selected_data.id,value).subscribe((res:any)=>{
+            this.toastrService.success(res.message)
+            this.loading=false
+            this.getAll()
+        },
+        (err:any)=>{
+          this.loading=false
+          console.log(err)
+            AppSweetAlert.simpleAlert("error","Gestion des utilisateurs",err.error.message)
+        })
+    }
+
 
     onSearchChange() {
   const localResults = this.data.filter(d => d.name.includes(this.search_text));

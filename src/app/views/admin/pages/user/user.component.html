@@ -13,7 +13,7 @@
                     <option value="">Filtrer Par</option>
                     </select>
                     <input type="text" class="form-control" name="search_text" [(ngModel)]="search_text"   (ngModelChange)="onSearchChange()" placeholder="Rechercher..">
-                    <button (click)="resetSearch()" class="btn btn-outline-primary" type="button"><i class="fa fa-rotate-left" aria-hidden="true"></i> </button>
+                    <button (click)="resetSearch()" class="btn btn-outline-primary" type="button"><i class="bi bi-arrow-counterclockwise " aria-hidden="true"></i> </button>
                 </div>
             </div>
         </div>
@@ -226,14 +226,7 @@
                 <label for="">Prénoms <span class="text-danger ml-2">(*)</span></label>
                 <input type="text" name="firstname" class="form-control" ngModel>
             </div>
-              <div class=" form-group col-12 mb-3">
-                <label for="">Date de naissance <span class="text-danger ml-2">(*)</span></label>
-                <input type="date" name="birthdate" class="form-control" ngModel>
-            </div>
-            <div class=" form-group col-12 mb-3">
-                <label for="">Lieu de naissance <span class="text-danger ml-2">(*)</span></label>
-                <input type="text" name="birthplace" class="form-control" ngModel>
-            </div>
+           
             <div class=" form-group col-12 mb-3">
                 <label for="">Adresse<span class="text-danger ml-2">(*)</span></label>
                 <input type="text" name="address" class="form-control" ngModel>
@@ -277,14 +270,14 @@
                 <label for="">Prénoms <span class="text-danger ml-2">(*)</span></label>
                 <input type="text" name="firstname" class="form-control" [(ngModel)]="selected_data.firstname">
             </div>
-              <div class=" form-group col-12 mb-3">
+              <!-- <div class=" form-group col-12 mb-3">
                 <label for="">Date de naissance <span class="text-danger ml-2">(*)</span></label>
                 <input type="date" name="birthdate" class="form-control" [(ngModel)]="selected_data.birthdate">
             </div>
             <div class=" form-group col-12 mb-3">
                 <label for="">Lieu de naissance <span class="text-danger ml-2">(*)</span></label>
                 <input type="text" name="birthplace" class="form-control" [(ngModel)]="selected_data.birthplace">
-            </div>
+            </div> -->
             <div class=" form-group col-12 mb-3">
                 <label for="">Adresse<span class="text-danger ml-2">(*)</span></label>
                 <input type="text" name="address" class="form-control" [(ngModel)]="selected_data.address">
@@ -377,7 +370,7 @@
                         <td >{{selected_data.phone}} </td>
                       
                     </tr>
-                    <tr >
+                    <!-- <tr >
                         <td class="fw-medium">Date de naissance</td>
                         <td >{{selected_data.birthdate | date:"dd-MM-yyyy"}} </td>
                       
@@ -386,7 +379,7 @@
                         <td class="fw-medium">Lieu de naissance</td>
                         <td >{{selected_data.birthplace}} </td>
                       
-                    </tr>
+                    </tr> -->
                
                     <tr >
                         <td class="fw-medium">rôle</td>

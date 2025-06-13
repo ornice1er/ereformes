@@ -44,6 +44,8 @@ export class MylistReformesComponent implements OnInit {
    search_text=""
  loading=false
   remoteSearchData: any[] = []
+     selectedId: number | null = null;
+  is_active=null
   constructor(
     private reformeService:ReformeService,
     private affService:AffectationService,
@@ -252,6 +254,22 @@ export class MylistReformesComponent implements OnInit {
       PDF.save('angular-demo.pdf');
     });*/
   }
+
+    setStatus(value:any){
+  
+      this.toastrService.warning("Opération en cours")
+        this.loading=true
+          this.reformeService.setStatus(this.selected_data.id,value).subscribe((res:any)=>{
+            this.toastrService.success(res.message)
+            this.loading=false
+            this.getAll()
+        },
+        (err:any)=>{
+          this.loading=false
+          console.log(err)
+            AppSweetAlert.simpleAlert("error","Gestion des utilisateurs",err.error.message)
+        })
+    }
 
     onSearchChange() {
   const localResults = this.data.filter(d => d.name.includes(this.search_text));

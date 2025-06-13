@@ -33,7 +33,9 @@ export class SectorsComponent implements OnInit {
  search_text=""
  loading=false
   remoteSearchData: any[] = []
-  
+  selectedId: number | null = null;
+  is_active=null
+
   constructor(
     private sectorService:SectorService,
     private toastrService:ToastrService,
@@ -72,7 +74,7 @@ export class SectorsComponent implements OnInit {
       this.pg.p=1
       this.pg.total=res.data.length
       }
-     
+      this.selectedId=null
       this.modalService.dismissAll()
       
     },
@@ -191,8 +193,24 @@ export class SectorsComponent implements OnInit {
     this.modalService.open(content,{size:'lg'});
 
   }
+
+   setStatus(value:any){
+
+    this.toastrService.warning("Opération en cours")
+      this.loading=true
+        this.sectorService.setStatus(this.selected_data.id,value).subscribe((res:any)=>{
+          this.toastrService.success(res.message)
+          this.loading=false
+          this.getAll()
+      },
+      (err:any)=>{
+        this.loading=false
+        console.log(err)
+          AppSweetAlert.simpleAlert("error","Gestion des secteurs",err.error.message)
+      })
+  }
   onSearchChange() {
-  const localResults = this.data.filter(d => d.name.includes(this.search_text));
+  const localResults = this.data.filter(d => d.libsecteur.includes(this.search_text));
   if (this.search_text.length > 2 && localResults.length === 0) {
     this.searchRemotely();
   }

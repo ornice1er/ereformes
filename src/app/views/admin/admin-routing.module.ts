@@ -71,23 +71,23 @@ export const AdminRoutes: any = [ // ✅ Doit être un tableau
         component:FollowReformeCreateComponent
       },
       {
-        path:'parameters/sectors',
+        path:'sectors',
         component:SectorsComponent
       },
       {
-        path:'parameters/structures',
+        path:'structures',
         component:StructuresComponent
       },
       {
-        path:'parameters/natures',
+        path:'natures',
         component:NaturesComponent
       },
       {
-        path:'parameters/covers',
+        path:'covers',
         component:CoversComponent
       },
       {
-        path:'parameters/entities',
+        path:'entities',
         component:EntitiesComponent
       },
       {

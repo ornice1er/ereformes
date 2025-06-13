@@ -1,0 +1,31 @@
+{
+  "routes": [
+    "/",
+    "/404",
+    "/activate-account",
+    "/admin",
+    "/admin/backups",
+    "/admin/covers",
+    "/admin/create-reforme",
+    "/admin/dashboard",
+    "/admin/entities",
+    "/admin/follow-reforme-create",
+    "/admin/follow-reformes",
+    "/admin/list-reformes",
+    "/admin/mylist-reformes",
+    "/admin/natures",
+    "/admin/objectifs",
+    "/admin/permissions",
+    "/admin/profils",
+    "/admin/roles",
+    "/admin/search-reformes",
+    "/admin/sectors",
+    "/admin/structures",
+    "/admin/treatment-reformes",
+    "/admin/users",
+    "/forget-password",
+    "/login",
+    "/user-account",
+    "/user-settinngs"
+  ]
+}

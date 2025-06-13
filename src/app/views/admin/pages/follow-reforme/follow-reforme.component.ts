@@ -41,6 +41,8 @@ export class FollowReformeComponent implements OnInit {
  search_text=""
  loading=false
   remoteSearchData: any[] = []
+     selectedId: number | null = null;
+  is_active=null
   
   constructor(
     private reformeService:ReformeService,

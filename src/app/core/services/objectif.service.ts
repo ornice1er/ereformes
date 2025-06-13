@@ -43,6 +43,10 @@ export class ObjectifService {
     return this.http.get<any>(`${this.url}`,
      ConfigService.httpHeader(localStorage.getItem(GlobalName.tokenName),true));
   }
+    setStatus(id:any,status:any){
+        return this.http.get<any>(`${this.url}/${id}/state/${status}`,
+         ConfigService.addAction('status'));
+      }
 
     search(resource:any){
     return this.http.post<any>(`${this.url}-search`,resource,

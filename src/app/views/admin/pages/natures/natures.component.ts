@@ -34,7 +34,8 @@ export class NaturesComponent implements OnInit {
  search_text=""
  loading=false
   remoteSearchData: any[] = []
-  
+     selectedId: number | null = null;
+  is_active=null
   constructor(
     private natureService:NatureService,
     private toastrService:ToastrService,
@@ -190,9 +191,25 @@ export class NaturesComponent implements OnInit {
 
   }
 
+    setStatus(value:any){
+  
+      this.toastrService.warning("Opération en cours")
+        this.loading=true
+          this.natureService.setStatus(this.selected_data.id,value).subscribe((res:any)=>{
+            this.toastrService.success(res.message)
+            this.loading=false
+            this.getAll()
+        },
+        (err:any)=>{
+          this.loading=false
+          console.log(err)
+            AppSweetAlert.simpleAlert("error","Gestion des utilisateurs",err.error.message)
+        })
+    }
+
 
     onSearchChange() {
-  const localResults = this.data.filter(d => d.name.includes(this.search_text));
+  const localResults = this.data.filter(d => d.libnature.includes(this.search_text));
   if (this.search_text.length > 2 && localResults.length === 0) {
     this.searchRemotely();
   }

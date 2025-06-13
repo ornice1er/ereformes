@@ -31,6 +31,10 @@ export class ResultatService {
      ConfigService.httpHeader(localStorage.getItem(GlobalName.tokenName),true));
   }
 
+    setStatus(id:any,status:any){
+      return this.http.get<any>(`${this.url}/${id}/state/${status}`,
+       ConfigService.addAction('status'));
+    }
   get(id:any){
     return this.http.get<any>(`${this.url}`,
      ConfigService.httpHeader(localStorage.getItem(GlobalName.tokenName),true));

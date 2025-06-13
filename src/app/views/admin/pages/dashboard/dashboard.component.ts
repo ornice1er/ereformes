@@ -32,8 +32,8 @@ export class DashboardComponent {
   ngOnInit(): void {
   
      this.user=this.lsService.get(GlobalName.userName)
-     this.getDash();
      this.role=this.user.roles[0].name
+     this.getDash();
 }
 
 

@@ -8,7 +8,7 @@ import { GlobalName } from '../utils/global-name';
 })
 export class SectorService {
 
-  url=ConfigService.toApiUrl("sectors/");
+  url=ConfigService.toApiUrl("sectors");
 
   constructor(private http:HttpClient) { }
 
@@ -29,11 +29,11 @@ export class SectorService {
   update(id:any,ressource:any){
     //ressource['method']='_patch';
 
-    return this.http.put<any>(`${this.url}${id}/`, ressource,  ConfigService.httpHeader(localStorage.getItem(GlobalName.tokenName),true));
+    return this.http.put<any>(`${this.url}/${id}`, ressource,  ConfigService.httpHeader(localStorage.getItem(GlobalName.tokenName),true));
   }
   delete(id:any){
    // ressource['method']='delete';
-    return this.http.delete<any>(`${this.url}${id}`,
+    return this.http.delete<any>(`${this.url}/${id}`,
      ConfigService.httpHeader(localStorage.getItem(GlobalName.tokenName),true));
   }
 
@@ -41,6 +41,11 @@ export class SectorService {
     return this.http.get<any>(`${this.url}`,
      ConfigService.httpHeader(localStorage.getItem(GlobalName.tokenName),true));
   }
+
+    setStatus(id:any,status:any){
+      return this.http.get<any>(`${this.url}/${id}/state/${status}`,
+       ConfigService.addAction('status'));
+    }
     search(resource:any){
     return this.http.post<any>(`${this.url}-search`,resource,
      ConfigService.addAction('status'));

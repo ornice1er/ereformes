@@ -18,6 +18,13 @@ export class SampleSearchPipe implements PipeTransform {
               item?.address?.toLowerCase().includes(searchText.toLowerCase()) ||
               item?.fonction?.toLowerCase().includes(searchText.toLowerCase()) ||
               item?.email?.toLowerCase().includes(searchText.toLowerCase()) ||
+              item?.libsecteur?.toLowerCase().includes(searchText.toLowerCase()) ||
+              item?.designation?.toLowerCase().includes(searchText.toLowerCase()) ||
+              item?.sigl?.toLowerCase().includes(searchText.toLowerCase()) ||
+              item?.adresse_struct?.toLowerCase().includes(searchText.toLowerCase()) ||
+              item?.telephone?.toLowerCase().includes(searchText.toLowerCase()) ||
+              item?.libnature?.toLowerCase().includes(searchText.toLowerCase()) ||
+              item?.lib_couvert?.toLowerCase().includes(searchText.toLowerCase()) ||
               item?.phone?.toLowerCase().includes(searchText.toLowerCase()) 
         }) : value;
   }

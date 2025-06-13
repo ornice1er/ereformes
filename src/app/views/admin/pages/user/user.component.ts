@@ -29,7 +29,6 @@ export class UserComponent implements OnInit,AfterViewInit  {
 @ViewChild('other_content2') other_content2:any
 @ViewChild('other_content3') other_content3:any
   
-selectedId: number | null = null;
 
   buttonsPermission :any|undefined;
  search_text=""
@@ -53,6 +52,7 @@ selectedId: number | null = null;
     total:0
   }
   isPaginate=true
+  selectedId: number | null = null;
   tag="admin-users"
   
   constructor(
@@ -114,7 +114,7 @@ selectedId: number | null = null;
       this.pg.p=1
       this.pg.total=res.data.length
       }
-     
+      this.selectedId=null
       this.modalService.dismissAll()
     },
     (err:any)=>{

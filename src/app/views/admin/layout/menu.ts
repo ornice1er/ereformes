@@ -16,14 +16,14 @@ export const AdminMenu:menu[]=[
     {
         isTitle:false,
         name:"Tableau de bord",
-        route:'/admin/accueil',
+        route:'/admin/dashboard',
         hasChildren:false
     
     },
     {
         isTitle:false,
         name:"Comptes utilisateurs",
-        route:'/admin/parameters/users',
+        route:'/admin/users',
         hasChildren:false
     
     },
@@ -54,25 +54,25 @@ export const AdminMenu:menu[]=[
                 isTitle:false,
                 hasChildren:false,
                 name:"Secteurs",
-                route:"/admin/parameters/sectors"
+                route:"/admin/sectors"
             },
             {
                 isTitle:false,
                 hasChildren:false,
                 name:"Structures",
-                route:"/admin/parameters/structures"
+                route:"/admin/structures"
             },
             {
                 isTitle:false,
                 hasChildren:false,
                 name:"Natures",
-                route:"/admin/parameters/natures"
+                route:"/admin/natures"
             },
             {
                 isTitle:false,
                 hasChildren:false,
                 name:"Couvertures",
-                route:"/admin/parameters/covers"
+                route:"/admin/covers"
             },
             {
                 isTitle:false,
@@ -96,7 +96,7 @@ export const SaisieCentraleMenu:menu[]=[
     {
         isTitle:false,
         name:"Tableau de bord",
-        route:'/admin/accueil',
+        route:'/admin/dashboard',
         hasChildren:false
     
     },
@@ -145,25 +145,25 @@ export const SaisieCentraleMenu:menu[]=[
                 isTitle:false,
                 hasChildren:false,
                 name:"Secteurs",
-                route:"/admin/parameters/sectors"
+                route:"/admin/sectors"
             },
             {
                 isTitle:false,
                 hasChildren:false,
                 name:"Structures",
-                route:"/admin/parameters/structures"
+                route:"/admin/structures"
             },
             {
                 isTitle:false,
                 hasChildren:false,
                 name:"Natures",
-                route:"/admin/parameters/natures"
+                route:"/admin/natures"
             },
             {
                 isTitle:false,
                 hasChildren:false,
                 name:"Couvertures",
-                route:"/admin/parameters/covers"
+                route:"/admin/covers"
             }
           
         ]
@@ -180,7 +180,7 @@ export const SaisieCentraleMenu:menu[]=[
         {
             isTitle:false,
             name:"Tableau de bord",
-            route:'/admin/accueil',
+            route:'/admin/dashboard',
             hasChildren:false
         
         },
@@ -243,7 +243,7 @@ export const SaisieCentraleMenu:menu[]=[
             {
                 isTitle:false,
                 name:"Tableau de bord",
-                route:'/admin/accueil',
+                route:'/admin/dashboard',
                 hasChildren:false
             
             },
@@ -299,7 +299,7 @@ export const SaisieCentraleMenu:menu[]=[
                 {
                     isTitle:false,
                     name:"Tableau de bord",
-                    route:'/admin/accueil',
+                    route:'/admin/dashboard',
                     hasChildren:false
                 
                 },

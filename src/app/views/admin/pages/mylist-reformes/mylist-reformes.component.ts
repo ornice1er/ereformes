@@ -13,6 +13,7 @@ import { AppSweetAlert } from '../../../../core/utils/app-sweet-alert';
 import { GlobalName } from '../../../../core/utils/global-name';
 import { LocalStorageService } from '../../../../core/utils/local-stoarge-service';
 import { LoadingComponent } from '../../../components/loading/loading.component';
+import { RouterModule } from '@angular/router';
 //import { jsPDF } from 'jspdf';
 //import html2canvas from 'html2canvas';
 
@@ -20,7 +21,7 @@ import { LoadingComponent } from '../../../components/loading/loading.component'
   selector: 'app-mylist-reformes',
   templateUrl: './mylist-reformes.component.html',
     standalone:true,
-    imports:[CommonModule,FormsModule,NgbModule,LoadingComponent,SampleSearchPipe,NgSelectModule,NgxPaginationModule],
+    imports:[CommonModule,FormsModule,NgbModule,LoadingComponent,SampleSearchPipe,NgSelectModule,NgxPaginationModule, RouterModule],
   styleUrls: ['./mylist-reformes.component.css']
 })
 export class MylistReformesComponent implements OnInit {
@@ -67,7 +68,7 @@ export class MylistReformesComponent implements OnInit {
     this.role=this.user.roles[0].name
 
     this.init()
-    this.buttonsPermission = {
+      this.buttonsPermission = {
       show:true,
       add:true,
       edit:false,

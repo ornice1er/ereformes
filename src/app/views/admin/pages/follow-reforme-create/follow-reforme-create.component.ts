@@ -92,7 +92,7 @@ export class FollowReformeCreateComponent implements OnInit {
 
 
   store(value:any){
-    value.resultat_id=this.result_id
+    value.result_id=this.result_id
 
     if (this.suivi_results.length>0) {
               let date1=new Date(this.suivi_results[this.suivi_results.length-1].date)

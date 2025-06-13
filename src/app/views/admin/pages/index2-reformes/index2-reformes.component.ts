@@ -98,6 +98,8 @@ pg={
       this.pg.p=1
       this.pg.total=res.data.length
       }
+
+      this.selectedId=null
      
       this.modalService.dismissAll()
       

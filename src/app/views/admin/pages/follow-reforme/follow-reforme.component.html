@@ -1,8 +1,7 @@
 <div class="row">
     <div class="col-lg-12">
-       <div class="card">
-           <div class="card-header">
-               <div class="form-group">
+       <div class="card p-3 rounded">
+               <div class="form-group mb-3">
                    <label for="">Choisir une réforme</label>
                    <!-- <select  name="reforme_id" class="form-control" (change)="loadResult($event)"  id="">
                         <option disabled selected>Choisir une réforme</option>
@@ -11,16 +10,11 @@
                 <ng-select  
                 *ngIf="isShown"
                 (valueChanged)="loadResult($event)"
-                class="form-control"
                     >	
-                    <ng-option *ngFor="let r of reformes2" [value]="r.id">{{r.name}}</ng-option>	
+                    <ng-option *ngFor="let r of reformes2" [value]="r.id">{{r.text}}</ng-option>	
                 </ng-select>
                </div>
-            <div class="d-flex mb-5 " *ngIf="buttonsPermission">
-              
-            </div>
-           </div>
-           <p class="text-center h3" *ngIf="result?.objectifs.length ==0">Aucune donnée de suivi</p>
+           <p class="text-center h3" *ngIf="result?.objectifs?.length ==0">Aucune donnée de suivi</p>
            <div class="card-body mb-3" *ngFor="let o of result?.objectifs">
             <div class="table-responsive" >
                 <h3> <strong>Objectif:</strong> {{o.libobjectif}}

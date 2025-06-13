@@ -1,8 +1,8 @@
 
         <form #addForm="ngForm" (ngSubmit)="store(addForm.value)" class="mb-5">
 
-        <div class="card ">
-            <div class="card-body">
+        <div class="bg-white  ">
+            <div class="">
                 <fieldset class="border mb-3 p-3">
                     <legend>Informations Générales</legend>
                     <div class="row">
@@ -235,8 +235,8 @@
                 </div>
 
             </div>
-            <div class="card-footer d-flex justify-content-end">
-                <button type="submit" [disabled]="addForm.invalid || isLoading" class="btn-sm btn-success btn-submit">Enregistrer</button>
+            <div class=" d-flex justify-content-end">
+                <button type="submit" [disabled]="addForm.invalid || isLoading" class="btn btn-sm btn-success">Enregistrer</button>
             </div>
         </div>
     </form>

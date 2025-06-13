@@ -118,7 +118,15 @@ export class CreateReformeComponent implements OnInit {
       AppSweetAlert.simpleAlert("error","Date Incorrect","La date début ne peut être antérieure à la date fin")
       return ;
     }
-    this.period=`Du ${date1} au ${date2}`
+    // Format en JJ/MM/AAAA
+      const formatDate = (date:any) => {
+        let day = String(date.getDate()).padStart(2, '0');
+        let month = String(date.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0
+        let year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+      };
+
+      this.period = `Du ${formatDate(date1)} au ${formatDate(date2)}`;
 
     this.isLoading=true
   

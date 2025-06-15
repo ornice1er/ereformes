@@ -9,12 +9,13 @@ import { SampleSearchPipe } from '../../../../core/pipes/sample-search.pipe';
 import { EntityService } from '../../../../core/services/entity.service';
 import { AppSweetAlert } from '../../../../core/utils/app-sweet-alert';
 import { LoadingComponent } from '../../../components/loading/loading.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-entities',
   templateUrl: './entities.component.html',
   standalone:true,
-  imports:[CommonModule,FormsModule,NgbModule,LoadingComponent,SampleSearchPipe,NgSelectModule,NgxPaginationModule],
+  imports:[CommonModule,FormsModule,NgbModule,LoadingComponent,SampleSearchPipe,NgSelectModule,NgxPaginationModule,MatTooltipModule],
   styleUrls: ['./entities.component.css']
 })
 export class EntitiesComponent implements OnInit {

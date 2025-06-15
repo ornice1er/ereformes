@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -42,7 +42,7 @@ export class LayoutComponent {
   role:any
   loading:any
   menu:any[]=[]
-
+ isMobile: boolean = false;
 
   constructor(
     private modalService: NgbModal,
@@ -53,11 +53,21 @@ export class LayoutComponent {
   ) { }
 
   ngOnInit(): void {
-  
+   this.checkScreenSize();
     this.user=this.lsService.get(GlobalName.userName)
     this.role=this.user.roles[0].name
     this.getMenu()
 }
+
+  @HostListener('window:resize', [])
+  onResize() {
+    this.checkScreenSize();
+  }
+
+  checkScreenSize() {
+    this.isMobile = window.innerWidth <= 768;
+  }
+
 
 toggleMenu() {
   this.menuOpen = !this.menuOpen;
@@ -86,8 +96,10 @@ toggleMenu() {
   }
 
      saveUsager(value:any) {
- 
+      this.loading=true
       this.authService.update(value).subscribe((res: any) => {
+              this.loading=false
+
         this.modalService.dismissAll()
         AppSweetAlert.simpleAlert('succes',"Mise à jour", "Profile mis à jour avec succès");
       })

@@ -11,12 +11,13 @@ import { RoleService } from '../../../../core/services/role.service';
 import { AppErrorShow } from '../../../../core/utils/app-error-show';
 import { AppSweetAlert } from '../../../../core/utils/app-sweet-alert';
 import { LoadingComponent } from '../../../components/loading/loading.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-role',
   templateUrl: './role.component.html',
   standalone:true,
-  imports:[CommonModule,FormsModule,NgbModule,LoadingComponent,SampleSearchPipe,NgSelectModule,NgxPaginationModule,RouterModule],
+  imports:[CommonModule,FormsModule,NgbModule,LoadingComponent,SampleSearchPipe,NgSelectModule,NgxPaginationModule,RouterModule,MatTooltipModule],
   styleUrls: ['./role.component.css']
 })
 export class RoleComponent implements OnInit {

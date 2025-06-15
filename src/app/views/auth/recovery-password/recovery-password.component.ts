@@ -38,14 +38,15 @@ export class RecoveryPasswordComponent implements OnInit {
   
     recoverPassword(value:any){
 
-      if (value.password != value.confirm_password) {
+      if (value.password != value.password_confirmation) {
         this.toastr.error('Nouveaux mots de passe non identique', 'Mot de passe oublié');
         return ;
       }
+      value.token=this.token
       this.loading=true
-      this.authService.recoverPassword(this.token,value).subscribe((res:any)=>{
+      this.authService.recoverPassword(value).subscribe((res:any)=>{
         this.loading=false
-        this.router.navigate(['/admin/login'])
+        this.router.navigate(['/login'])
         this.toastr.success('Changement de mot passe réussi', 'Mot de passe oublié');
 
        

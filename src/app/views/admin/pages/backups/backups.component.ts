@@ -12,12 +12,13 @@ import { AppSweetAlert } from '../../../../core/utils/app-sweet-alert';
 import { ConfigService } from '../../../../core/utils/config-service';
 import { LoadingComponent } from '../../../components/loading/loading.component';
 import { BackupService } from '../../../../core/services/backup.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-backups',
   templateUrl: './backups.component.html',
    standalone:true,
-    imports:[CommonModule,FormsModule,NgbModule,LoadingComponent,SampleSearchPipe,NgSelectModule,NgxPaginationModule],
+    imports:[CommonModule,FormsModule,NgbModule,LoadingComponent,SampleSearchPipe,NgSelectModule,NgxPaginationModule,MatTooltipModule],
   styleUrls: ['./backups.component.css']
 })
 export class BackupsComponent implements OnInit {

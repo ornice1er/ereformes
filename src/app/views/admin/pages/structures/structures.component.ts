@@ -10,12 +10,13 @@ import { SectorService } from '../../../../core/services/sector.service';
 import { StructureService } from '../../../../core/services/structure.service';
 import { AppSweetAlert } from '../../../../core/utils/app-sweet-alert';
 import { LoadingComponent } from '../../../components/loading/loading.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-structures',
   templateUrl: './structures.component.html',
     standalone:true,
-    imports:[CommonModule,FormsModule,NgbModule,LoadingComponent,SampleSearchPipe,NgSelectModule,NgxPaginationModule],
+    imports:[CommonModule,FormsModule,NgbModule,LoadingComponent,SampleSearchPipe,NgSelectModule,NgxPaginationModule,MatTooltipModule],
   styleUrls: ['./structures.component.css']
 })
 export class StructuresComponent implements OnInit {

@@ -9,12 +9,13 @@ import { SampleSearchPipe } from '../../../../core/pipes/sample-search.pipe';
 import { SectorService } from '../../../../core/services/sector.service';
 import { AppSweetAlert } from '../../../../core/utils/app-sweet-alert';
 import { LoadingComponent } from '../../../components/loading/loading.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-sectors',
   templateUrl: './sectors.component.html',
     standalone:true,
-    imports:[CommonModule,FormsModule,NgbModule,LoadingComponent,SampleSearchPipe,NgSelectModule,NgxPaginationModule],
+    imports:[CommonModule,FormsModule,NgbModule,LoadingComponent,SampleSearchPipe,NgSelectModule,NgxPaginationModule,MatTooltipModule],
   styleUrls: ['./sectors.component.css']
 })
 export class SectorsComponent implements OnInit {

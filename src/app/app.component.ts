@@ -15,6 +15,7 @@ export class AppComponent {
    isReady = false;
 
      constructor(private authService: AuthService) {
+      
     this.authService.isReady.subscribe(ready => {
       this.isReady = ready;
     });

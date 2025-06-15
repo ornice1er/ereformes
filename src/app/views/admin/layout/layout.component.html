@@ -1,32 +1,47 @@
-<mat-toolbar color="">
-    <button class="text-dark" mat-icon-button (click)="toggleMenu()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>e Reformes</span>
-       <div class="">
-      <button mat-button [matMenuTriggerFor]="userMenu">
-        <img [src]="'assets/user.jpg'"  class="avatar" alt="avatar utilisateur">
-        <span class="username text-dark">{{ user?.name  ?? "Non défini"}}</span>
-        <mat-icon>arrow_drop_down</mat-icon>
-      </button>
+<mat-toolbar color="primary" class="toolbar">
+  <button mat-icon-button (click)="toggleMenu()" class="mobile-menu-btn">
+    <mat-icon>menu</mat-icon>
+  </button>
 
-      <mat-menu #userMenu="matMenu">
-        <div class="menu-header">
-          <img [src]="'assets/user.jpg'"  class="avatar" alt="avatar">
-          <div>
-            <strong>{{ user?.name }}</strong>
-            <p>{{ user?.email }}</p>
-          </div>
-        </div>
-        <button mat-menu-item  (click)="openAddModal(profil)">
-          <mat-icon>edit</mat-icon>
-          <span>Modifier le profil</span>
-        </button>
-        <mat-divider></mat-divider>
-        <button class="btn btn-sm btn-danger" (click)="logout()">Déconnexion</button>
-      </mat-menu>
+  <span class="app-title">e Reformes</span>
+
+  <span class="spacer"></span>
+
+  <!-- Desktop user menu -->
+  <div class="user-menu" *ngIf="!isMobile">
+    <button mat-button [matMenuTriggerFor]="userMenu">
+      <img [src]="'assets/user.jpg'" class="avatar" alt="avatar utilisateur">
+      <span class="username">{{ user?.name ?? 'Non défini' }}</span>
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+  </div>
+
+  <!-- Mobile user icon (menu triggered differently) -->
+  <div class="user-menu" *ngIf="isMobile">
+    <button mat-icon-button [matMenuTriggerFor]="userMenu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<mat-menu #userMenu="matMenu">
+  <div class="menu-header">
+    <img [src]="'assets/user.jpg'" class="avatar" alt="avatar">
+    <div>
+      <strong>{{ user?.name }}</strong>
+      <p>{{ user?.email }}</p>
     </div>
-  </mat-toolbar>
+  </div>
+  <button mat-menu-item (click)="openAddModal(profil)">
+    <mat-icon>edit</mat-icon>
+    <span>Modifier le profil</span>
+  </button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    <span>Déconnexion</span>
+  </button>
+</mat-menu>
   
   <mat-sidenav-container class="">
     <mat-sidenav #sidenav mode="side" class="menu-bg rounded-0" [(opened)]="menuOpen">
@@ -56,38 +71,37 @@
 
 
   
-  <ng-template #profil let-modal>
+  <ng-template #profil let-modal let-c="close" let-d="dismiss">
         <form #frmusager="ngForm" (ngSubmit)="saveUsager(frmusager.value)" class="form-horizontal"
             novalidate="">
             <div class="modal-header bg-mat-primary">
                 <h5 class="modal-title text-white" id="modal-basic-title">Mon profil</h5>
-                <button type="button" class="close text-white" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                    X
-                </button>
+                 <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+
             </div>
             <div class="modal-body">
-                <div class="form-group  row">
+                <div class="form-group mb-3  row">
 
                     <label for="nom1" class="col-sm-3 control-label"> Nom * </label>
 
                     <div class="col-sm-9">
 
-                        <input type="text" class="form-control has-error" id="nom1" name="nom" value="{{user?.nom}}"
-                            [(ngModel)]="user.nom" required>
+                        <input type="text" class="form-control has-error" id="lastname" name="lastname" value="{{user?.lastname}}"
+                            [(ngModel)]="user.lastname" required>
 
 
                     </div>
 
                 </div>
 
-                <div class="form-group  row">
+                <div class="form-group mb-3 row">
 
                     <label for="prenoms" class="col-sm-3 control-label"> Prénoms * </label>
 
                     <div class="col-sm-9">
 
-                        <input type="text" class="form-control has-error" id="prenoms" name="prenoms" value="{{user?.prenoms}}"
-                            [(ngModel)]="user.prenoms" required>
+                        <input type="text" class="form-control has-error" id="firstname" name="firstname" value="{{user?.firstname}}"
+                            [(ngModel)]="user.firstname" required>
 
 
 
@@ -95,7 +109,7 @@
 
                 </div>
 
-                <div class="form-group  row">
+                <div class="form-group mb-3  row">
 
                     <label for="email1" class="col-sm-3 control-label"> Email *</label>
 
@@ -107,14 +121,14 @@
 
                 </div>
 
-                <div class="form-group  row">
+                <div class="form-group mb-3  row">
 
                     <label for="tel2" class="col-sm-3 control-label"> Téléphone *</label>
 
                     <div class="col-sm-9">
 
                         <input type="text" numbers-only="numbers-only" class="form-control has-error" id="tel2"
-                            name="tel" value="{{user?.tel}}" [(ngModel)]="user.tel" required>
+                            name="phone" value="{{user?.phone}}" [(ngModel)]="user.phone" required>
 
 
 
@@ -126,7 +140,7 @@
             </div>
             <div class="modal-footer">
 
-                <button type="submit" class="btn btn-primary" [disabled]="frmusager.invalid"><i class="fas fa-save"></i>&nbsp;
+                <button type="submit" class="btn btn-primary" [disabled]="frmusager.invalid || loading"><i class="fas fa-save"></i>&nbsp;
                     Enregistrer</button>
 
 

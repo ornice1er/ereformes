@@ -59,18 +59,18 @@ export class AuthService {
   }
 
   sendMail(ressource:any){
-    return this.http.post<any>(`${this.url2}api/send-reset-password-link`, ressource,
+    return this.http.post<any>(`${this.url2}api/forgot-password`, ressource,
      ConfigService.httpHeader(null,true));
   }
 
 
   
   update(ressource:any){
-    return this.http.post<any>(`${this.url2}api/update-profile`, ressource,ConfigService.addAction('edit'));
+    return this.http.post<any>(`${this.url2}api/user-update`, ressource,ConfigService.addAction('edit'));
   }
 
-  recoverPassword(token:any,ressource:any){
-    return this.http.post<any>(`${this.url2}api/recovery-password/${token}`, ressource,
+  recoverPassword(ressource:any){
+    return this.http.post<any>(`${this.url2}api/recovery-password`, ressource,
      ConfigService.httpHeader(null,true));
   }
 

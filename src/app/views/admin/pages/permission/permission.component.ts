@@ -12,11 +12,14 @@ import { AppFeatures } from '../../../../core/utils/app-features';
 import { AppSweetAlert } from '../../../../core/utils/app-sweet-alert';
 import { LocalStorageService } from '../../../../core/utils/local-stoarge-service';
 import { LoadingComponent } from '../../../components/loading/loading.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+
 @Component({
   selector: 'app-permission',
   templateUrl: './permission.component.html',
   standalone:true,
-  imports:[CommonModule,FormsModule,NgbModule,LoadingComponent,SampleSearchPipe,NgSelectModule,NgxPaginationModule],
+  imports:[CommonModule,FormsModule,NgbModule,LoadingComponent,SampleSearchPipe,NgSelectModule,NgxPaginationModule,MatTooltipModule],
   styleUrls: ['./permission.component.css']
 })
 export class PermissionComponent implements OnInit {

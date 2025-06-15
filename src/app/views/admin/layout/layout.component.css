@@ -1,3 +1,48 @@
+/** Menu mobile **/
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-title {
+  font-weight: bold;
+  color: black;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+/* Bouton menu uniquement visible sur mobile */
+.mobile-menu-btn {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .username {
+    display: none;
+  }
+}
+
+
+/** Menu all **/
 .container {
     height: 100vh;
   }

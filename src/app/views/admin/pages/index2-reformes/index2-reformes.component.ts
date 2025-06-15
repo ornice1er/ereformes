@@ -15,12 +15,15 @@ import { AppSweetAlert } from '../../../../core/utils/app-sweet-alert';
 import { GlobalName } from '../../../../core/utils/global-name';
 import { LocalStorageService } from '../../../../core/utils/local-stoarge-service';
 import { LoadingComponent } from '../../../components/loading/loading.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-index2-reformes',
   templateUrl: './index2-reformes.component.html',
     standalone:true,
-    imports:[CommonModule,FormsModule,NgbModule,LoadingComponent,SampleSearchPipe,NgSelectModule,NgxPaginationModule],
+    imports:[CommonModule,FormsModule,NgbModule,LoadingComponent,SampleSearchPipe,NgSelectModule,NgxPaginationModule,MatTooltipModule],
   styleUrls: ['./index2-reformes.component.css']
 })
 export class Index2ReformesComponent implements OnInit {
@@ -83,6 +86,13 @@ pg={
    //this.getObjectifs()
   }
 
+
+    ngAfterViewInit(): void {
+    const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+  }
 
 
   getAll(){

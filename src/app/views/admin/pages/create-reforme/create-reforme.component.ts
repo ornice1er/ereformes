@@ -16,6 +16,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SampleSearchPipe } from '../../../../core/pipes/sample-search.pipe';
 import { LoadingComponent } from '../../../components/loading/loading.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-reforme',
@@ -45,6 +46,7 @@ export class CreateReformeComponent implements OnInit {
     private coverService:CouvertureService,
     private fileService:FileService,
     private reformeService:ReformeService,
+    private toastrService:ToastrService,
     private router:Router,
     config: NgbModalConfig,
     private modalService: NgbModal,
@@ -86,6 +88,9 @@ export class CreateReformeComponent implements OnInit {
 
   openAddFile(content:any){
     this.modalService.open(content,{size:'lg'});
+  }
+  removeFile(i:any){
+    this.files.splice(i,1)
   }
 
 
@@ -140,14 +145,20 @@ export class CreateReformeComponent implements OnInit {
 
     })
   }
-  addFile(value:any){
-    this.formData.append("name_file",value.name_file)
+  addFile(form:any){
+
+    this.isLoading=true
+    this.formData.append("name_file",form.value.name_file)
     this.fileService.store(this.formData).subscribe((res:any)=>{
-      res.data['original_name']=value.name_file;
+      this.toastrService.info('Continuer en chargeant un autre fichier ou fermer le panel', 'Chargement de fichier')
+      res.data['original_name']=form.value.name_file;
       this.files.push(res.data)
-      this.formData= new FormData()
+     form.resetForm()
+         this.isLoading=false
+
     },
     (err:any)=>{
+          this.isLoading=false
 
     })
   }

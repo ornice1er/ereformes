@@ -291,7 +291,7 @@
        
     </div>
     <div class="modal-footer">
-      <button type="submit" class="btn btn-outline-dark" >Sauvegarder</button>
+      <button type="submit" [disabled]="isLoading" class="btn btn-outline-dark" >Sauvegarder <app-loading [isVisible]="isLoading"></app-loading></button>
     </div>
 </form>
   </ng-template>
@@ -512,7 +512,7 @@
        
     </div>
     <div class="modal-footer">
-      <button type="submit" [disabled]="rForm.invalid" class="btn btn-outline-dark" >Soumettre</button>
+      <button type="submit" [disabled]="rForm.invalid || isLoading" class="btn btn-outline-dark" >Enregistrer <app-loading [isVisible]="isLoading"></app-loading></button>
     </div>
 </form>
   </ng-template>
@@ -542,7 +542,7 @@
            
         </div>
         <div class="modal-footer">
-          <button type="submit" [disabled]="addObjForm.invalid" class="btn btn-outline-dark" >Enregistrer</button>
+          <button type="submit" [disabled]="addObjForm.invalid || isLoading" class="btn btn-outline-dark" >Enregistrer <app-loading [isVisible]="isLoading"></app-loading></button>
         </div>
     </form>
   </ng-template>

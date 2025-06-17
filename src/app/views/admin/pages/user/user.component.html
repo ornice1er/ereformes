@@ -238,6 +238,12 @@
                 <label for="">Contact <span class="text-danger ml-2">(*)</span></label>
                 <input type="text" name="phone" class="form-control" ngModel>
             </div>
+             <div class=" form-group col-12 mb-3">
+                <label for="">Structure <span class="text-danger ml-2">(*)</span></label>
+                <ng-select name="structure_id" ngModel>
+                    <ng-option *ngFor="let s of structures" [value]="s.id">{{s.designation}}</ng-option>
+                </ng-select>
+            </div>
             <div class=" form-group col-12 mb-3">
                 <label for="">Rôle <span class="text-danger ml-2">(*)</span></label>
                 <ng-select name="roles" ngModel [multiple]="true">
@@ -287,7 +293,13 @@
             </div>
             <div class=" form-group col-12 mb-3">
                 <label for="">Contact <span class="text-danger ml-2">(*)</span></label>
-                <input type="text" name="phone" class="form-control" [(ngModel)]="selected_data.email">
+                <input type="text" name="phone" class="form-control" [(ngModel)]="selected_data.phone">
+            </div>
+            <div class=" form-group col-12 mb-3">
+                <label for="">Structure <span class="text-danger ml-2">(*)</span></label>
+                <ng-select name="structure_id" [(ngModel)]="selected_data.structure_id">
+                    <ng-option *ngFor="let s of structures" [value]="s.id">{{s.designation}}</ng-option>
+                </ng-select>
             </div>
             <div class=" form-group col-12 mb-3">
                 <label for="">rôle <span class="text-danger ml-2">(*)</span></label>

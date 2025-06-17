@@ -14,6 +14,7 @@ import { LoadingComponent } from '../../../components/loading/loading.component'
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { UserService } from '../../../../core/services/user.service';
+import { StructureService } from '../../../../core/services/structure.service';
 declare var bootstrap: any;
 
 
@@ -58,6 +59,7 @@ export class UserComponent implements OnInit,AfterViewInit  {
   constructor(
     private userService:UserService,
     private roleService:RoleService,
+    private structureService:StructureService,
     private toastrService:ToastrService,
       config: NgbModalConfig,
       private lsService:LocalStorageService,
@@ -89,9 +91,18 @@ export class UserComponent implements OnInit,AfterViewInit  {
   init(){
     this.getAll()
     this.getRoles()
+    this.getStructures()
   }
 
 
+  getStructures(){
+    this.structureService.getAll().subscribe((res:any)=>{
+      this.structures=res.data
+    },
+    (err:any)=>{
+    AppErrorShow.showError("Gestion des structures",err)
+    })
+  }
   getRoles(){
     this.roleService.getAll().subscribe((res:any)=>{
       this.roles=res.data

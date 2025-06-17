@@ -36,6 +36,7 @@ export class Index2ReformesComponent implements OnInit {
   selected_data:any;
   modalOption:any; 
   isDtInitialized:boolean = false
+  isLoading:boolean = false
   role:any
   user:any
 pg={

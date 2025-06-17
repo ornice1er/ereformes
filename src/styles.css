@@ -239,3 +239,7 @@ input[type=checkbox]{
 .bg-blue{
         background-color: rgb(31, 6, 100);
 }
+
+table tbody{
+  min-height:200px;
+}

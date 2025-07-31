@@ -1,117 +1,157 @@
-<div class="container p-5">
-<div class="d-flex justify-content-between align-items-center flex-wrap mb-4 gap-3">
-    <div class="d-flex flex-column">
-        <h3>Tableau de bord</h3>
-    </div>
-   
-</div>
-    <section class="row">
-        <div class="col-12">
-            <div class="row">
-                <div class="col-12 col-lg-4 col-md-6 mb-3" *ngIf="role=='saisie' || role=='saisie central'">
-                    <div class="card card-block card-stretch card-height">
-                        <div class="card-body">
-                            <div class="mb-2 d-flex justify-content-between align-items-center">
-                                <span class="text-dark ">Réformes en attente de transmission</span>
-                                
-                            </div>
-                            <h2 class="counter" style="visibility: visible;">{{data?.total_pending}}</h2>
-                        </div>
-                    </div>
-                   
-                </div>
+<div class="dashboard-container fade-in">
+  <div class="container">
+    <h1 class="dashboard-title">Tableau de bord</h1>
 
-
-                <div class="col-12 col-lg-4 col-md-6 mb-3" *ngIf="role=='validation'">
-                    <div class="card card-block card-stretch card-height">
-                        <div class="card-body">
-                            <div class="mb-2 d-flex justify-content-between align-items-center">
-                                <span class="text-dark ">Réformes en attente de validation</span>
-                                
-                            </div>
-                            <h2 class="counter" style="visibility: visible;">{{data?.total_pending}}</h2>
-                        </div>
-                    </div>
-                   
-                </div>
-
-                <div class="col-12 col-lg-4 col-md-6 mb-3" *ngIf="role=='publication'">
-                    <div class="card card-block card-stretch card-height">
-                        <div class="card-body">
-                            <div class="mb-2 d-flex justify-content-between align-items-center">
-                                <span class="text-dark ">Réformes en attente de publication</span>
-                                
-                            </div>
-                            <h2 class="counter" style="visibility: visible;">{{data?.total_pending}}</h2>
-                        </div>
-                    </div>
-                   
-                </div>
-                <div class="col-12 col-lg-4 col-md-6 mb-3" *ngIf="role=='admin'">
-                    <div class="card card-block card-stretch card-height bg-primary " >
-                        <div class="card-body">
-                            <div class="mb-2 d-flex justify-content-between align-items-center">
-                                <span class="text-white ">Compte Utilisateurs</span>
-                                
-                            </div>
-                            <h2 class="counter text-white" style="visibility: visible;">{{data?.users}}</h2>
-                        </div>
-                    </div>
-                   
-                </div>
-                <div class="col-12 col-lg-4 col-md-6 mb-3" *ngIf="role=='admin'">
-                    <div class="card card-block card-stretch card-height bg-warning ">
-                        <div class="card-body">
-                            <div class="mb-2 d-flex justify-content-between align-items-center">
-                                <span class="text-white ">Structures</span>
-                                
-                            </div>
-                            <h2 class="counter text-white" style="visibility: visible;">{{data?.total_structures}}</h2>
-                        </div>
-                    </div>
-                
-                </div>
-                <div class="col-12 col-lg-4 col-md-6 mb-3">
-                    <div class="card card-block card-stretch card-height bg-danger">
-                        <div class="card-body">
-                            <div class="mb-2 d-flex justify-content-between align-items-center">
-                                <span class="text-white ">Réformes</span>
-                                
-                            </div>
-                            <h2 class="counter text-white" style="visibility: visible;">{{data?.total_reforme}}</h2>
-                        </div>
-                    </div>
-                  
-                </div>
-                <div class="col-12 col-lg-4 col-md-6 mb-3">
-                    <div class="card card-block card-stretch card-height bg-success">
-                        <div class="card-body">
-                            <div class="mb-2 d-flex justify-content-between align-items-center">
-                                <span class="text-white ">Réformes administratives</span>
-                                
-                            </div>
-                            <h2 class="counter text-white" style="visibility: visible;">{{data?.total_reforme_admin}}</h2>
-                        </div>
-                    </div>
-                
-                </div>
-                <div class="col-12 col-lg-4 col-md-6 mb-3">
-                    <div class="card card-block card-stretch card-height bg-dark">
-                        <div class="card-body">
-                            <div class="mb-2 d-flex justify-content-between align-items-center">
-                                <span class="text-white ">Réformes institutionnelles</span>
-                                
-                            </div>
-                            <h2 class="counter text-white" style="visibility: visible;">{{data?.total_reforme_ins}}</h2>
-                        </div>
-                    </div>
-                    
-                </div>
-            
-            </div>
-           
+    <div class="stats-grid">
+      <div class="stat-card blue" *ngIf="role=='saisie' || role=='saisie central'">
+        <div class="stat-content">
+          <div class="stat-info">
+            <h3 class="stat-label">Réformes en attente de transmission</h3>
+            <p class="stat-value">{{data?.total_pending}}</p>
+          </div>
+          <div class="stat-icon">
+            <lucide-icon [img]="FileTextIcon" size="28"></lucide-icon>
+          </div>
         </div>
-       
-    </section>
+      </div>
+      <div class="stat-card blue" *ngIf="role=='validation'">
+        <div class="stat-content">
+          <div class="stat-info">
+            <h3 class="stat-label">Réformes en attente de validation</h3>
+            <p class="stat-value">{{data?.total_pending}}</p>
+          </div>
+          <div class="stat-icon">
+            <lucide-icon [img]="FileTextIcon" size="28"></lucide-icon>
+          </div>
+        </div>
+      </div>
+      <div class="stat-card blue" *ngIf="role=='publication'">
+        <div class="stat-content">
+          <div class="stat-info">
+            <h3 class="stat-label">Réformes en attente de publication</h3>
+            <p class="stat-value">{{data?.total_pending}}</p>
+          </div>
+          <div class="stat-icon">
+            <lucide-icon [img]="FileTextIcon" size="28"></lucide-icon>
+          </div>
+        </div>
+      </div>
 
-</div>
+      <div class="stat-card red">
+        <div class="stat-content">
+          <div class="stat-info">
+            <h3 class="stat-label">Réformes</h3>
+            <p class="stat-value">{{data?.total_reforme}}</p>
+          </div>
+          <div class="stat-icon">
+            <lucide-icon [img]="BarChart3Icon" size="28"></lucide-icon>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card red" *ngIf="role=='admin'">
+        <div class="stat-content">
+          <div class="stat-info">
+            <h3 class="stat-label">Compte Utilisateurs</h3>
+            <p class="stat-value">{{data?.users}}</p>
+          </div>
+          <div class="stat-icon">
+            <lucide-icon [img]="UsersIcon" size="28"></lucide-icon>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card gray" *ngIf="role=='admin'">
+        <div class="stat-content">
+          <div class="stat-info">
+            <h3 class="stat-label">Structures</h3>
+            <p class="stat-value">{{data?.total_structures}}</p>
+          </div>
+          <div class="stat-icon">
+            <lucide-icon [img]="BuildingIcon" size="28"></lucide-icon>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card green">
+        <div class="stat-content">
+          <div class="stat-info">
+            <h3 class="stat-label">Réformes administratives</h3>
+            <p class="stat-value">{{data?.total_reforme_admin}}</p>
+          </div>
+          <div class="stat-icon">
+            <lucide-icon [img]="UsersIcon" size="28"></lucide-icon>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card gray">
+        <div class="stat-content">
+          <div class="stat-info">
+            <h3 class="stat-label">Réformes institutionnelles</h3>
+            <p class="stat-value">{{data?.total_reforme_ins}}</p>
+          </div>
+          <div class="stat-icon">
+            <lucide-icon [img]="BuildingIcon" size="28"></lucide-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reforms-table-container card">
+      <div class="table-header">
+        <h2 class="table-title">Liste des réformes</h2>
+        <button mat-raised-button color="primary" class="add-reform-btn">
+          <mat-icon>add</mat-icon>
+          Nouvelle réforme
+        </button>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="reforms-table">
+          <thead>
+            <tr>
+              <th class="header-cell">Objet</th>
+              <th class="header-cell">Période d'exécution</th>
+              <th class="header-cell">Statut</th>
+              <th class="header-cell">Structure porteuse</th>
+              <th class="header-cell">Progression</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let reform of reforms$ | async" class="table-row">
+              <td class="cell-objet">
+                <div class="reform-info">
+                  <span class="reform-title">{{ reform.libelle }}</span>
+                  <span class="reform-type">{{ getTypeLabel(reform.typeReforme) }}</span>
+                </div>
+              </td>
+              <td class="cell-periode">
+                <div class="periode-info">
+                  <span class="periode-duration">{{ reform.periodeExecution }}</span>
+                  <span class="periode-dates">{{ formatDateRange(reform.dateDebut, reform.dateFin) }}</span>
+                </div>
+              </td>
+              <td class="cell-status">
+                <mat-chip class="status-chip status-{{ reform.status }}">
+                  {{ getStatusLabel(reform.status) }}
+                </mat-chip>
+              </td>
+              <td class="cell-structure">
+                {{ reform.structurePorteuse }}
+              </td>
+              <td class="cell-progression">
+                <div class="progression-container">
+                  <mat-progress-bar mode="determinate" [value]="reform.progression"
+                    class="progress-bar progress-{{ reform.status }}">
+                  </mat-progress-bar>
+                  <span class="progression-text">{{ reform.progression }}%</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>

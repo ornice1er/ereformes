@@ -77,31 +77,33 @@
   mat-panel-title{
     color: white !important;
   }
-  
+
   mat-expansion-panel mat-nav-list a span{
     color: black !important;
   }
-  
+
   mat-sidenav-content{
     min-height: 100vh;
   }
 
-  .menu-bg{
-    background-color: rgb(31, 6, 100);
-  }
-
+ .menu-bg {
+  background: linear-gradient(65deg, #11845A, #023E79);
+}
+/* .menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+} */
   mat-list-item a .active, .active{
     background-color: black !important;
     color: white !important;
     border-radius: unset !important;
   }
-  
+
 
 ::ng-deep  .mat-expansion-indicator svg{
     fill:white !important;
   }
 
-  
+
 .avatar {
   width: 32px;
   height: 32px;

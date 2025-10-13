@@ -9,7 +9,7 @@
                 </select> -->
                 <ng-select  
                 *ngIf="isShown"
-                (valueChanged)="loadResult($event)"
+                (change)="loadResult($event)"
                     >	
                     <ng-option *ngFor="let r of reformes2" [value]="r.id">{{r.text}}</ng-option>	
                 </ng-select>
@@ -31,7 +31,7 @@
                             <span *ngIf="d.status ==1"  class="bg-success p-1 text-white rounded">
                                 Validé
                             </span>
-                            <button class="btn btn-sm btn-outline-primary" *ngIf="d.status ==0" (click)="changeStatus(d.id)">Valider</button>
+                            <button class="btn btn-sm btn-outline-primary" *ngIf="d.status ==0 && d.suivi_results?.length!=0 && role=='publication'" (click)="changeStatus(d.id)">Valider</button>
                     </p>
                     <table class="table table-sm align-middle   table-nowrap mb-0 table-bordered" >
                         <thead class="table-secondary">

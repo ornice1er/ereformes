@@ -12,6 +12,8 @@ import { ReformeService } from '../../../../core/services/reforme.service';
 import { ResultatService } from '../../../../core/services/resultat.service';
 import { AppSweetAlert } from '../../../../core/utils/app-sweet-alert';
 import { LoadingComponent } from '../../../components/loading/loading.component';
+import { GlobalName } from '../../../../core/utils/global-name';
+import { LocalStorageService } from '../../../../core/utils/local-stoarge-service';
 
 @Component({
   selector: 'app-follow-reforme',
@@ -28,6 +30,8 @@ export class FollowReformeComponent implements OnInit {
   reformes:any[] =[]
   reformes2:any[] =[]
   result:any
+  role:any
+  user:any
   selected_data:any;
   modalOption:any; 
   isDtInitialized:boolean = false
@@ -51,6 +55,7 @@ export class FollowReformeComponent implements OnInit {
     private toastrService:ToastrService,
       config: NgbModalConfig,
     private modalService: NgbModal,
+          private lsService:LocalStorageService,
     
     
 
@@ -62,6 +67,8 @@ export class FollowReformeComponent implements OnInit {
 
   ngOnInit(): void {
 
+     this.user=this.lsService.get(GlobalName.userName)
+        this.role=this.user.roles[0].name
     this.init()
     this.buttonsPermission = {
       show:true,

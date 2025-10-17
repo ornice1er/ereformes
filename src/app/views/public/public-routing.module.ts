@@ -4,10 +4,10 @@ import { PublicLayoutComponent } from "./public-layout/public-layout.component";
 
 export const PublicRoutes: any = [ // ✅ Doit être un tableau
     {
-      path: '',
+      path: 'accueil',
       component: PublicLayoutComponent,
       children: [
-        { path: 'accueil', component: WelcomeComponent },
+        { path: '', component: WelcomeComponent },
       ]
     }
   ]

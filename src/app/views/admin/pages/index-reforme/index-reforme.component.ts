@@ -28,6 +28,8 @@ import { LoadingComponent } from '../../../components/loading/loading.component'
 export class IndexReformeComponent implements OnInit {
   buttonsPermission :any|undefined;
   structures:any[] =[]
+  covers:any[] =[]
+  natures:any[] =[]
   objectifs:any[] =[]
   user:any
   role:any
@@ -36,8 +38,7 @@ export class IndexReformeComponent implements OnInit {
   selected_data:any;
   modalOption:any; 
   isDtInitialized:boolean = false
-  covers:any[] =[]
-  natures:any[] =[]
+
 pg={
     pageSize:10,
     p:1,

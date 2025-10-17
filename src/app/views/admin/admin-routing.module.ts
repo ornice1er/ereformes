@@ -1,4 +1,6 @@
 import { AuthGuard } from "../../core/guards/auth.guard";
+import { UserProfilComponent } from "../auth/user-profil/user-profil.component";
+import { UserSettingComponent } from "../auth/user-setting/user-setting.component";
 import { LayoutComponent } from "./layout/layout.component";
 import { BackupsComponent } from "./pages/backups/backups.component";
 import { CoversComponent } from "./pages/covers/covers.component";
@@ -94,7 +96,14 @@ export const AdminRoutes: any = [ // ✅ Doit être un tableau
         path:'backups',
         component:BackupsComponent
       },
-    
+      {
+      path:"user-account",
+      component:UserProfilComponent
+    },
+    {
+      path:"user-settinngs",
+      component:UserSettingComponent
+    },
 
       ]
     }

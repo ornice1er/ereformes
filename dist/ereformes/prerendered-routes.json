@@ -1,8 +1,7 @@
 {
   "routes": [
-    "/",
     "/404",
-    "/activate-account",
+    "/accueil",
     "/admin",
     "/admin/backups",
     "/admin/covers",
@@ -22,10 +21,12 @@
     "/admin/sectors",
     "/admin/structures",
     "/admin/treatment-reformes",
+    "/admin/user-account",
+    "/admin/user-settinngs",
     "/admin/users",
-    "/forget-password",
-    "/login",
-    "/user-account",
-    "/user-settinngs"
+    "/auth",
+    "/auth/activate-account",
+    "/auth/forget-password",
+    "/auth/login"
   ]
 }

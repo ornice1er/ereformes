@@ -1,0 +1,37 @@
+.card {
+  border-radius: 1rem !important;
+}
+
+.bg-gradient-to-r {
+  background: linear-gradient(to right, #0d47a1, #1976d2);
+}
+
+.form-label {
+  font-weight: 500;
+  color: #fff;
+}
+
+select.form-select,
+input.form-control {
+  border-radius: 0.5rem;
+}
+
+.table thead {
+  font-weight: 600;
+  background-color: #f1f5ff;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f9fbff;
+  cursor: pointer;
+}
+
+.badge {
+  font-size: 0.85rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 0.75rem;
+}
+
+input.form-control::placeholder {
+  color: #aaa;
+}

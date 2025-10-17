@@ -1,0 +1,146 @@
+<div class="container-fluid py-4">
+
+    <div class="text-center">
+        <img src="assets/logo_mtfp.jpeg" class="mb-3" alt="" srcset="">
+    </div>
+
+  <!-- 🔎 Barre de recherche avancée -->
+  <div class="card shadow-sm mb-4 border-0">
+    <div class="card-body bg-gradient-to-r from-blue-900 to-blue-700 text-white rounded-2xl p-4">
+      <h5 class="fw-bold mb-3">🔍 Rechercher par critères</h5>
+
+      <div class="row g-3">
+        <div class="col-md-3">
+          <label class="form-label">Structure</label>
+          <select class="form-select" (change)="filterByStructure($event)">
+            <option value="all">Toutes</option>
+            <option *ngFor="let s of structures" [value]="s.id">{{ s.designation }}</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Nature</label>
+          <select class="form-select" (change)="filterByNature($event)">
+            <option value="all">Toutes</option>
+            <option *ngFor="let s of natures" [value]="s.id">{{ s.libnature }}</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Couverture</label>
+          <select class="form-select" (change)="filterByCover($event)">
+            <option value="all">Toutes</option>
+            <option *ngFor="let s of covers" [value]="s.id">{{ s.lib_couvert }}</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Type de réforme</label>
+          <select class="form-select" ngModel (change)="filterByTypeR($event)">
+            <option value="all">Tout</option>
+            <option value="SECTORIELLE">Sectorielle</option>
+            <option value="TRANSVERSALE">Transversale</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🧭 En-tête des actions -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="fw-bold text-primary m-0">📋 Liste des réformes publiées</h4>
+    <div class="d-flex align-items-center gap-2">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Rechercher..."
+          [(ngModel)]="search_text"
+          (ngModelChange)="onSearchChange()"
+        />
+        <button (click)="resetSearch()" class="btn btn-outline-primary">
+          <i class="bi bi-arrow-counterclockwise"></i>
+        </button>
+      </div>
+     
+    </div>
+  </div>
+
+  <!-- 📊 Tableau principal -->
+  <div class="card shadow border-0">
+    <div class="card-body">
+
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <p class="mb-0 text-muted">
+          {{ isPaginate ? pg.total : data2.length }} élément(s)
+        </p>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table align-middle table-hover">
+          <thead class="table-primary">
+            <tr>
+              <th>#</th>
+              <th>Libellé</th>
+              <th>Type</th>
+              <th>Période</th>
+              <th>Date début</th>
+              <th>Date fin</th>
+              <th>État</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr
+              *ngFor="let d of data2 | paginate: {
+                id: 'ngxP1',
+                itemsPerPage: pg.pageSize,
+                currentPage: pg.p,
+                totalItems: pg.total
+              } | sampleSearch: search_text; let i=index"
+            >
+              <td>
+              {{i+1}}
+              </td>
+              <td>{{ d.libref }}</td>
+              <td>{{ d.typeref }}</td>
+              <td>{{ d.periodexe }}</td>
+              <td>{{ d.date_debut | date: 'longDate' }}</td>
+              <td>{{ d.date_fin | date: 'longDate' }}</td>
+              <td>{{ d.etat_mor }}</td>
+            
+            </tr>
+
+            <tr
+              *ngIf="
+                search_text !== '' &&
+                (data | sampleSearch: search_text).length === 0
+              "
+            >
+              <td colspan="8" class="text-center text-muted py-3">
+                <p>Aucun résultat trouvé</p>
+                <button
+                  class="btn btn-outline-secondary btn-sm"
+                  (click)="resetSearch()"
+                >
+                  Réinitialiser la recherche
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex justify-content-end mt-3">
+        <pagination-controls
+          id="ngxP1"
+          (pageChange)="getPage($event)"
+          [maxSize]="9"
+          [directionLinks]="true"
+          [autoHide]="true"
+          [responsive]="true"
+          previousLabel="Précédent"
+          nextLabel="Suivant"
+        >
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

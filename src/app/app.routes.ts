@@ -14,10 +14,12 @@ import { LayoutComponent } from './views/auth/layout/layout.component';
 import { PublicRoutes } from './views/public/public-routing.module';
 
 export const routes: Routes = [
-    {path: '', redirectTo: '/login',pathMatch:'full'},
     ...AdminRoutes,
+    ...PublicRoutes,
+        {path: '', redirectTo: '/accueil',pathMatch:'full'},
+
     {
-      path:"",
+      path:"auth",
       component:LayoutComponent,
       canActivate:[IsAuthedGuard],
       children:[
@@ -42,17 +44,8 @@ export const routes: Routes = [
       ]
     },
    
-    {
-      path:"user-account",
-      canActivate:[AuthGuard],
-      component:UserProfilComponent
-    },
-    {
-      path:"user-settinngs",
-      canActivate:[AuthGuard],
-      component:UserSettingComponent
-    },
+  
    
     {path: '404', component: NotFoundComponent},
-    {path: '**', redirectTo: '/404'}
+    // {path: '**', redirectTo: '/404'}
 ];

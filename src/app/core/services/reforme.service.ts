@@ -36,9 +36,18 @@ export class ReformeService {
           return this.http.get<any[]>(`${this.url}users/get-my-list`,ConfigService.addAction('list'));
     }
   }
+
   getSuiviResult(isPaginate=false,per_page?:any,page?:any){
      if (isPaginate) {
           return this.http.get<any[]>(`${this.url}users/get-suivi-result?per_page=${per_page}&page=${page}`,ConfigService.addAction('list'));
+
+    }else{
+          return this.http.get<any[]>(`${this.url}users/get-suivi-result`,ConfigService.addAction('list'));
+    }
+  }
+  getPublic(isPaginate=false,per_page?:any,page?:any){
+     if (isPaginate) {
+          return this.http.get<any[]>(`${this.url}public/suivi-result?per_page=${per_page}&page=${page}`,ConfigService.addAction('list'));
 
     }else{
           return this.http.get<any[]>(`${this.url}users/get-suivi-result`,ConfigService.addAction('list'));

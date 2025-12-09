@@ -98,6 +98,15 @@ export class WelcomeComponent {
   
       })
     }
+
+    downloadPdf(id:any){
+      this.reformeService.downloadPDF(id).subscribe((res:any)=>{
+          window.open(res.data,'blank')  
+      },
+      (err:any)=>{
+  
+      })
+    }
   
       onSearchChange() {
   const localResults = this.data.filter(d => d.lib_couvert.includes(this.search_text));

@@ -128,6 +128,7 @@
               <th>Date début</th>
               <th>Date fin</th>
               <th>État</th>
+              <th>Action</th>
             </tr>
           </thead>
 
@@ -149,7 +150,9 @@
               <td>{{ d.date_debut | date: 'longDate' }}</td>
               <td>{{ d.date_fin | date: 'longDate' }}</td>
               <td>{{ d.etat_mor }}</td>
-            
+             <td>
+              <button (click)="downloadPdf(d.id)" class="btn btn-sm btn-danger">Imprimer</button>
+             </td>
             </tr>
 
             <tr

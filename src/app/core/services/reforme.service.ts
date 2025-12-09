@@ -53,6 +53,13 @@ export class ReformeService {
           return this.http.get<any[]>(`${this.url}users/get-suivi-result`,ConfigService.addAction('list'));
     }
   }
+
+   downloadPDF(id:any){
+           return this.http.get<any[]>(`${this.url}public/suivi-result/${id}`,ConfigService.addAction('list'));
+
+  }
+
+  
   publish(id:any){
     return this.http.get<any[]>(`${this.url}state/publish/${id}`);
   }

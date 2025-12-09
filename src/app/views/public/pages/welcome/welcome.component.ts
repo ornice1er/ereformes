@@ -101,7 +101,7 @@ export class WelcomeComponent {
 
     downloadPdf(id:any){
       this.reformeService.downloadPDF(id).subscribe((res:any)=>{
-          window.open(res.data,'blank')  
+        window.open(res.data, '_blank');
       },
       (err:any)=>{
   

@@ -85,7 +85,7 @@ toggleMenu() {
       this.lsService.remove(GlobalName.expireIn)
       this.lsService.remove(GlobalName.userName)
       this.lsService.remove(GlobalName.exercice)
-      this.router.navigate(['/login'])
+      this.router.navigate(['/auth/login'])
       this.toastr.success('Déconnexion réussie', 'Connexion');
     }),
     (err:any)=>{

@@ -1,7 +1,51 @@
 <div class="container-fluid py-4">
 
-    <div class="text-center">
+    <div class="text-center mb-5">
         <img src="assets/logo_mtfp.jpeg" class="mb-3" alt="" srcset="">
+    </div>
+
+
+    <h4 class="text-center mb-5">Statistiques des réformes</h4>
+
+    <div class="stats-grid">
+
+        <div class="stat-card red">
+        <div class="stat-content">
+          <div class="stat-info">
+            <h3 class="stat-label">Réformes</h3>
+            <p class="stat-value">{{stats?.total_reforme}}</p>
+          </div>
+          <div class="stat-icon">
+            <lucide-icon [img]="BarChart3Icon" size="28"></lucide-icon>
+          </div>
+        </div>
+      </div>
+
+
+
+         <div class="stat-card green">
+        <div class="stat-content">
+          <div class="stat-info">
+            <h3 class="stat-label">Réformes administratives</h3>
+            <p class="stat-value">{{stats?.total_reforme_admin}}</p>
+          </div>
+          <div class="stat-icon">
+            <lucide-icon [img]="UsersIcon" size="28"></lucide-icon>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-card gray">
+        <div class="stat-content">
+          <div class="stat-info">
+            <h3 class="stat-label">Réformes institutionnelles</h3>
+            <p class="stat-value">{{stats?.total_reforme_ins}}</p>
+          </div>
+          <div class="stat-icon">
+            <lucide-icon [img]="BuildingIcon" size="28"></lucide-icon>
+          </div>
+        </div>
+      </div>
     </div>
 
   <!-- 🔎 Barre de recherche avancée -->

@@ -9,11 +9,12 @@ import { SampleSearchPipe } from '../../../../core/pipes/sample-search.pipe';
 import { CouvertureService } from '../../../../core/services/couverture.service';
 import { NatureService } from '../../../../core/services/nature.service';
 import { StructureService } from '../../../../core/services/structure.service';
+import { BarChart3, Building, FileText, LucideAngularModule, Users } from 'lucide-angular';
 
 @Component({
   selector: 'app-welcome',
   standalone: true,
-  imports: [CommonModule,NgxPaginationModule,FormsModule,SampleSearchPipe],
+  imports: [CommonModule,NgxPaginationModule,FormsModule,LucideAngularModule,SampleSearchPipe],
   templateUrl: './welcome.component.html',
   styleUrl: './welcome.component.css'
 })
@@ -21,7 +22,7 @@ export class WelcomeComponent {
   buttonsPermission :any|undefined;
   data:any[] =[]
     data2:any[] =[]
-
+  stats: any;
   selected_data:any;
   modalOption:any; 
   isDtInitialized:boolean = false
@@ -39,7 +40,10 @@ export class WelcomeComponent {
   structures:any[] =[]
   covers:any[] =[]
   natures:any[] =[]
-
+ readonly FileTextIcon = FileText;
+  readonly BarChart3Icon = BarChart3;
+  readonly UsersIcon = Users;
+  readonly BuildingIcon = Building;
 
     constructor(
       private reformeService:ReformeService,
@@ -76,14 +80,16 @@ export class WelcomeComponent {
       this.reformeService.getPublic(this.isPaginate,this.pg.pageSize,this.pg.p).subscribe((res:any)=>{
           this.isPaginate=res.isPaginate
         if (this.isPaginate) {
-          this.data=res.data.data
-          this.pg.p=res.data.current_page
-          this.pg.total=res.data.total
+          this.data=res.data.reformes?.data
+          this.pg.p=res.data.reformes?.current_page
+          this.pg.total=res.data.reformes?.total
         }else{
-        this.data=res.data
+        this.data=res.data.reformes
         this.pg.p=1
-        this.pg.total=res.data.length
+        this.pg.total=res.data.reformes?.length
         }
+
+        this.stats=res.data.stats
        this.selectedId=null
         this.modalService.dismissAll()
         this.data2=this.data

@@ -317,4 +317,18 @@ resetSearch() {
     }
   }
 
+   downloadPdf(){
+      this.reformeService.downloadPDF(this.selected_data?.id).subscribe((res:any)=>{
+       // window.open(res.data, '_blank');
+
+        const link = document.createElement('a');
+          link.href = res.data;
+          link.download = '';
+          link.click();
+      },
+      (err:any)=>{
+  
+      })
+    }
+  
 }
